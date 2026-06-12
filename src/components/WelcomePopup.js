@@ -39,13 +39,7 @@ const WelcomePopup = ({ onClose }) => {
               </div>
             </div>
 
-            <div className="feature-item">
-              <div className="feature-icon">🔗</div>
-              <div className="feature-text">
-                <p className="feature-en">Share the link with anyone - Your deployed site in just a few seconds</p>
-                <p className="feature-hi">लिंक किसी को भी भेजें - कुछ सेकंड में अपनी डिप्लॉय साइट पाएं</p>
-              </div>
-            </div>
+            
 
             <div className="feature-item">
               <div className="feature-icon">🤖</div>
