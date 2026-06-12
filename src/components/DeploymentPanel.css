@@ -22,9 +22,10 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
+  overflow-y: auto;
   z-index: 1001;
-  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
 }
 
 .deployment-container {
@@ -32,6 +33,7 @@
   border-radius: 12px;
   overflow-y: auto;
   max-height: 100%;
+  flex: 1;
 }
 
 .deployment-header {
@@ -346,13 +348,13 @@
   .deployment-panel {
     width: 95%;
     max-width: 95%;
-    max-height: 85vh;
+    max-height: 90vh;
     padding: 15px;
     border-radius: 12px;
   }
 
   .deployment-container {
-    padding: 15px;
+    padding: 0;
   }
 
   .deployment-header h2 {
@@ -440,13 +442,13 @@
   .deployment-panel {
     width: 98%;
     max-width: 98%;
-    max-height: 90vh;
+    max-height: 95vh;
     padding: 12px;
     border-radius: 10px;
   }
 
   .deployment-container {
-    padding: 12px;
+    padding: 0;
   }
 
   .deployment-header {
