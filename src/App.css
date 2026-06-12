@@ -503,138 +503,75 @@ body[data-theme="light"] .file-item button:hover {
 @media (max-width: 768px) {
   .app-container {
     flex-direction: column;
-    height: auto;
-    min-height: 100vh;
+    height: 100vh !important;
+    overflow: hidden;
   }
   
   .editor-panel {
     border-right: none;
     border-bottom: 1px solid var(--border-color);
-    height: 50vh;
-    min-height: 400px;
+    height: 50vh !important;
+    min-height: 300px;
+    max-height: 50vh;
+    overflow: hidden;
   }
   
   .chat-panel {
     width: 100%;
-    height: 50vh;
-    min-height: 400px;
+    height: 50vh !important;
+    min-height: 300px;
+    max-height: 50vh;
     border-left: none;
     border-top: 1px solid var(--border-color);
+    overflow: hidden;
   }
   
   .file-sidebar {
-    width: 100%;
-    min-width: 100%;
-    max-height: 200px;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 80vw !important;
+    max-width: 280px;
+    min-width: 240px;
+    height: 100vh;
+    z-index: 1000;
+    border-right: 1px solid var(--border-color);
+    border-bottom: none;
     overflow-y: auto;
+    box-shadow: 4px 0 12px rgba(0, 0, 0, 0.3);
   }
   
   .panel-header {
-    padding: 10px 16px;
-  }
-  
-  .panel-header h3 {
-    font-size: 14px;
-  }
-  
-  .chat-messages {
-    padding: 12px;
-    gap: 12px;
-  }
-  
-  .message {
-    padding: 10px;
-  }
-  
-  .message.user {
-    margin-left: 8px;
-  }
-  
-  .message.ai {
-    margin-right: 8px;
-  }
-  
-  .chat-input-section {
-    padding: 12px;
+    padding: 10px 12px;
+    flex-wrap: wrap;
     gap: 6px;
   }
   
-  .chat-input-section input {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-  
-  .chat-input-section button {
-    padding: 8px 14px;
-  }
-  
-  .code-editor {
-    padding: 12px;
-    font-size: 13px;
-  }
-  
-  .toggle-btn {
-    padding: 6px 10px;
-    font-size: 12px;
-  }
-  
-  .save-btn {
-    padding: 5px 10px;
-    font-size: 11px;
-  }
-  
-  .add-file-btn {
-    font-size: 14px;
-    padding: 4px 6px;
-  }
-  
-  .file-tree {
-    padding: 10px;
-    font-size: 13px;
-  }
-  
-  .file-item {
-    padding: 5px 6px;
-  }
-}
-
-@media (max-width: 480px) {
-  .app-container {
-    height: auto;
-  }
-  
-  .editor-panel {
-    height: 45vh;
-    min-height: 350px;
-  }
-  
-  .chat-panel {
-    height: 55vh;
-    min-height: 350px;
-  }
-  
-  .file-sidebar {
-    max-height: 180px;
-  }
-  
-  .panel-header {
-    padding: 8px 12px;
-  }
-  
   .panel-header h3 {
     font-size: 13px;
+  }
+  
+  .panel-header > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .panel-header button {
+    font-size: 11px !important;
+    padding: 4px 8px !important;
+    white-space: nowrap;
   }
   
   .chat-messages {
     padding: 10px;
     gap: 10px;
+    overflow-y: auto;
+    max-height: calc(50vh - 150px);
   }
   
   .message {
     padding: 8px;
-    font-size: 13px;
   }
   
   .message.user {
@@ -645,29 +582,17 @@ body[data-theme="light"] .file-item button:hover {
     margin-right: 4px;
   }
   
-  .message-label {
-    font-size: 10px;
-  }
-  
-  .message-text {
-    font-size: 13px;
-  }
-  
   .chat-input-section {
     padding: 10px;
-    gap: 4px;
-    flex-wrap: wrap;
+    gap: 6px;
   }
   
   .chat-input-section input {
-    width: 100%;
     padding: 8px 10px;
     font-size: 14px;
-    margin-bottom: 4px;
   }
   
   .chat-input-section button {
-    flex: 1;
     padding: 8px 12px;
     font-size: 14px;
   }
@@ -675,6 +600,7 @@ body[data-theme="light"] .file-item button:hover {
   .code-editor {
     padding: 10px;
     font-size: 12px;
+    overflow: auto;
   }
   
   .toggle-btn {
@@ -687,6 +613,11 @@ body[data-theme="light"] .file-item button:hover {
     font-size: 10px;
   }
   
+  .add-file-btn {
+    font-size: 13px;
+    padding: 3px 5px;
+  }
+  
   .file-tree {
     padding: 8px;
     font-size: 12px;
@@ -694,25 +625,132 @@ body[data-theme="light"] .file-item button:hover {
   
   .file-item {
     padding: 4px 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    height: 100vh !important;
+    overflow: hidden;
+  }
+  
+  .editor-panel {
+    height: 50vh !important;
+    min-height: 250px;
+    max-height: 50vh;
+  }
+  
+  .chat-panel {
+    height: 50vh !important;
+    min-height: 250px;
+    max-height: 50vh;
+  }
+  
+  .file-sidebar {
+    width: 85vw !important;
+    max-width: 260px;
+  }
+  
+  .panel-header {
+    padding: 8px 10px;
+    gap: 4px;
+  }
+  
+  .panel-header h3 {
     font-size: 12px;
+  }
+  
+  .panel-header button {
+    font-size: 10px !important;
+    padding: 3px 6px !important;
+  }
+  
+  .chat-messages {
+    padding: 8px;
+    gap: 8px;
+    max-height: calc(50vh - 130px);
+  }
+  
+  .message {
+    padding: 6px;
+    font-size: 12px;
+  }
+  
+  .message.user {
+    margin-left: 2px;
+  }
+  
+  .message.ai {
+    margin-right: 2px;
+  }
+  
+  .message-label {
+    font-size: 9px;
+  }
+  
+  .message-text {
+    font-size: 12px;
+  }
+  
+  .chat-input-section {
+    padding: 8px;
+    gap: 4px;
+    flex-direction: column;
+  }
+  
+  .chat-input-section input {
+    width: 100%;
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  .chat-input-section button {
+    width: 100%;
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  .code-editor {
+    padding: 8px;
+    font-size: 11px;
+  }
+  
+  .toggle-btn {
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+  
+  .save-btn {
+    padding: 3px 6px;
+    font-size: 9px;
+  }
+  
+  .file-tree {
+    padding: 6px;
+    font-size: 11px;
+  }
+  
+  .file-item {
+    padding: 3px 4px;
+    font-size: 11px;
   }
   
   .file-tree input {
-    padding: 5px 6px;
-    font-size: 12px;
+    padding: 4px 5px;
+    font-size: 11px;
   }
   
   .add-file-btn {
-    font-size: 13px;
-    padding: 3px 5px;
+    font-size: 12px;
+    padding: 2px 4px;
   }
   
   .empty-chat {
-    padding: 20px;
+    padding: 15px;
   }
   
   .empty-chat p {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
