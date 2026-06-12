@@ -2,6 +2,9 @@
   "name": "ai-code-editor-frontend",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
     "axios": "^1.6.0",
