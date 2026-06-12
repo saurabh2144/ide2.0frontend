@@ -886,3 +886,14 @@ textarea:focus-visible {
   margin-bottom: 8px;
   padding: 4px 0;
 }
+
+/* Mobile specific - show backdrop and close button */
+@media (max-width: 768px) {
+  .sidebar-backdrop {
+    display: block !important;
+  }
+  
+  .mobile-close-btn {
+    display: inline-block !important;
+  }
+}

@@ -764,26 +764,63 @@ btn.addEventListener("click", () => {
     }}>
       {/* FILE EXPLORER */}
       {showFiles && (
-        <div className="file-sidebar" style={{
-          width: '250px',
-          minWidth: '250px',
-          maxWidth: '250px',
-          borderRight: `1px solid ${theme === 'light' ? '#e0e0e0' : '#333'}`,
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: theme === 'light' ? '#f5f5f5' : '#252525',
-          flexShrink: 0
-        }}>
-          <div className="panel-header" style={{
-            padding: '10px',
-            borderBottom: `1px solid ${theme === 'light' ? '#e0e0e0' : '#333'}`,
-            fontWeight: 'bold',
+        <>
+          {/* Mobile backdrop */}
+          <div 
+            className="sidebar-backdrop"
+            onClick={() => setShowFiles(false)}
+            style={{
+              display: 'none',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              zIndex: 998
+            }}
+          />
+          
+          <div className="file-sidebar" style={{
+            width: '250px',
+            minWidth: '250px',
+            maxWidth: '250px',
+            borderRight: `1px solid ${theme === 'light' ? '#e0e0e0' : '#333'}`,
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'
+            flexDirection: 'column',
+            backgroundColor: theme === 'light' ? '#f5f5f5' : '#252525',
+            flexShrink: 0
           }}>
-            <h3 style={{ margin: 0 }}>File Structure</h3>
-            <div style={{ display: 'flex', gap: '5px' }}>
+            <div className="panel-header" style={{
+              padding: '10px',
+              borderBottom: `1px solid ${theme === 'light' ? '#e0e0e0' : '#333'}`,
+              fontWeight: 'bold',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <h3 style={{ margin: 0 }}>File Structure</h3>
+                {/* Mobile close button */}
+                <button
+                  className="mobile-close-btn"
+                  onClick={() => setShowFiles(false)}
+                  style={{
+                    display: 'none',
+                    padding: '4px 8px',
+                    fontSize: '14px',
+                    backgroundColor: '#f44336',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer'
+                  }}
+                  title="Close sidebar"
+                >
+                  ✕
+                </button>
+              </div>
+              <div style={{ display: 'flex', gap: '5px' }}>
               {user ? (
                 <>
                   <button
@@ -951,6 +988,7 @@ btn.addEventListener("click", () => {
             </div>
           </div>
         </div>
+        </>
       )}
 
       {/* CODE EDITOR */}
