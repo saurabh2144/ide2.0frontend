@@ -1878,6 +1878,7 @@ btn.addEventListener("click", () => {
               onClose={() => setShowDeploymentPanel(false)}
               onDeploySuccess={(result) => {
                 console.log('Deployment successful:', result);
+                console.log('Setting publishedUrl to:', result.url);
                 setPublishedUrl(result.url);
                 setIsPublished(true);
                 setSavedProjectId(result.projectId);

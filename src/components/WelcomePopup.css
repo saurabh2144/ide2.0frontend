@@ -218,18 +218,27 @@
   .feature-item {
     padding: 12px;
     gap: 12px;
+    align-items: flex-start;
   }
 
   .feature-icon {
     font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    flex: 1;
+    min-width: 0;
   }
 
   .feature-en {
     font-size: 14px;
+    margin-bottom: 4px;
   }
 
   .feature-hi {
     font-size: 13px;
+    margin-bottom: 0;
   }
 
   .welcome-action-button {
@@ -274,18 +283,29 @@
   .feature-item {
     padding: 10px;
     gap: 10px;
+    align-items: flex-start;
   }
 
   .feature-icon {
     font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    flex: 1;
+    min-width: 0;
   }
 
   .feature-en {
     font-size: 13px;
+    margin-bottom: 4px;
+    line-height: 1.3;
   }
 
   .feature-hi {
     font-size: 12px;
+    margin-bottom: 0;
+    line-height: 1.3;
   }
 
   .welcome-action-button {
@@ -299,5 +319,75 @@
     height: 28px;
     top: 10px;
     right: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .welcome-popup {
+    width: 100%;
+    max-width: 100%;
+    max-height: 95vh;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .welcome-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .welcome-title {
+    font-size: 16px;
+  }
+
+  .welcome-subtitle {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .welcome-features {
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .feature-item {
+    padding: 8px;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .feature-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .feature-en {
+    font-size: 12px;
+    margin-bottom: 3px;
+    line-height: 1.2;
+  }
+
+  .feature-hi {
+    font-size: 11px;
+    margin-bottom: 0;
+    line-height: 1.2;
+  }
+
+  .welcome-action-button {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .welcome-close-button {
+    font-size: 20px;
+    width: 26px;
+    height: 26px;
+    top: 8px;
+    right: 8px;
   }
 }
