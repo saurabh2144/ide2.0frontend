@@ -5,7 +5,7 @@ import Auth from './Auth';
 import './App.css';
 import Editor from "@monaco-editor/react";
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = 'http://localhost:5000';
 
 
 function App() {
