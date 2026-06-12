@@ -50,8 +50,13 @@ const WelcomePopup = ({ onClose }) => {
             <div className="feature-item">
               <div className="feature-icon">🤖</div>
               <div className="feature-text">
-                <p className="feature-en">AI Chat - Generate code with AI assistance</p>
-                <p className="feature-hi">AI चैट - AI सहायता से कोड जनरेट करें</p>
+               <p className="feature-en">Chat with AI and generate code effortlessly.</p>
+
+<p className="feature-en">Enjoy free unlimited AI chats — no tokens, no API key required.</p>
+
+<p className="feature-hi">AI से चैट करें और आसानी से कोड जनरेट करें।</p>
+
+<p className="feature-hi">एकदम मुफ्त और अनलिमिटेड AI चैट — न टोकन की जरूरत, न API Key की।</p>
               </div>
             </div>
 
@@ -59,6 +64,7 @@ const WelcomePopup = ({ onClose }) => {
               <div className="feature-icon">💻</div>
               <div className="feature-text">
                 <p className="feature-en">Full Code Editor - Build your projects easily</p>
+                 
                 <p className="feature-hi">पूर्ण कोड एडिटर - अपने प्रोजेक्ट आसानी से बनाएं</p>
               </div>
             </div>
