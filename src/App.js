@@ -156,6 +156,10 @@ btn.addEventListener("click", () => {
   const [backendSites, setBackendSites] = useState([]);
   const [selectedBackendSite, setSelectedBackendSite] = useState(null);
   const [showBackendSitesList, setShowBackendSitesList] = useState(false);
+  const [myDeployedSites, setMyDeployedSites] = useState(() => {
+    const saved = localStorage.getItem('myDeployedSites');
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const activeFile = files.find(file => file.id === activeFileId);
 
@@ -525,17 +529,34 @@ btn.addEventListener("click", () => {
     }
   };
 
-  // Fetch backend sites list
+  // Fetch backend sites list - only show user's own sites
   const fetchBackendSites = async () => {
     try {
-      const response = await axios.get(`${API_URL}/backend-sites`);
-      if (response.data.success) {
-        setBackendSites(response.data.sites || []);
-      }
+      // Get user's deployed sites from localStorage
+      const saved = localStorage.getItem('myDeployedSites');
+      const userSites = saved ? JSON.parse(saved) : [];
+      setBackendSites(userSites);
     } catch (error) {
       console.error('Failed to fetch backend sites:', error);
       setBackendSites([]);
     }
+  };
+
+  // Save deployed site to localStorage
+  const saveDeployedSite = (siteData) => {
+    const saved = localStorage.getItem('myDeployedSites');
+    let sites = saved ? JSON.parse(saved) : [];
+    
+    // Check if site already exists (update case)
+    const existingIndex = sites.findIndex(s => s.slug === siteData.slug);
+    if (existingIndex >= 0) {
+      sites[existingIndex] = siteData;
+    } else {
+      sites.push(siteData);
+    }
+    
+    localStorage.setItem('myDeployedSites', JSON.stringify(sites));
+    setMyDeployedSites(sites);
   };
 
   // Generate merged HTML by embedding CSS and JS
@@ -658,6 +679,14 @@ btn.addEventListener("click", () => {
       if (response.data.success) {
         setPublishedUrl(response.data.url);
         setShowPublishModal(true);
+        
+        // Save to localStorage
+        saveDeployedSite({
+          slug: response.data.projectId,
+          url: response.data.url,
+          lastModified: new Date().toISOString()
+        });
+        
         alert(`✅ ${isUpdate ? 'Site updated' : 'Site published'} successfully on backend!`);
       }
 
