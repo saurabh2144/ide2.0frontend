@@ -153,6 +153,9 @@ btn.addEventListener("click", () => {
   const [showDeploymentPanel, setShowDeploymentPanel] = useState(false);
   const [mergedHtml, setMergedHtml] = useState('');
   const [showWelcomePopup, setShowWelcomePopup] = useState(true);
+  const [backendSites, setBackendSites] = useState([]);
+  const [selectedBackendSite, setSelectedBackendSite] = useState(null);
+  const [showBackendSitesList, setShowBackendSitesList] = useState(false);
 
   const activeFile = files.find(file => file.id === activeFileId);
 
@@ -522,6 +525,19 @@ btn.addEventListener("click", () => {
     }
   };
 
+  // Fetch backend sites list
+  const fetchBackendSites = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/backend-sites`);
+      if (response.data.success) {
+        setBackendSites(response.data.sites || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch backend sites:', error);
+      setBackendSites([]);
+    }
+  };
+
   // Generate merged HTML by embedding CSS and JS
   const generateMergedHtml = (htmlContent) => {
     let finalHtml = htmlContent;
@@ -605,6 +621,58 @@ btn.addEventListener("click", () => {
     }
   };
 
+  // Handle backend deployment (new or update)
+  const handleBackendDeploy = async () => {
+    setShowDeploymentOptions(false);
+    
+    // Fetch backend sites first
+    await fetchBackendSites();
+    setShowBackendSitesList(true);
+  };
+
+  const confirmBackendDeploy = async (isUpdate, siteSlug = null) => {
+    const slugToUse = isUpdate ? siteSlug : customProjectSlug;
+    
+    if (!slugToUse || !slugToUse.trim()) {
+      alert('Please enter a project name');
+      return;
+    }
+
+    setShowBackendSitesList(false);
+    setShowConfirmDeploy(false);
+    setIsPublishing(true);
+
+    try {
+      const finalHtml = generateMergedHtml(getActiveHtmlContent());
+
+      const payload = {
+        mergedHtml: finalHtml,
+        projectName: activeFile.filename.replace('.html', ''),
+        customSlug: slugToUse.toLowerCase(),
+        projectId: isUpdate ? slugToUse : null,
+        deploymentType: 'backend'
+      };
+
+      const response = await axios.post(`${API_URL}/publish`, payload);
+
+      if (response.data.success) {
+        setPublishedUrl(response.data.url);
+        setShowPublishModal(true);
+        alert(`✅ ${isUpdate ? 'Site updated' : 'Site published'} successfully on backend!`);
+      }
+
+    } catch (error) {
+      if (error.response?.data?.nameTaken) {
+        alert(error.response.data.error);
+      } else {
+        alert(`Failed to deploy: ${error.response?.data?.error || error.message}`);
+      }
+      console.error('Deploy error:', error);
+    } finally {
+      setIsPublishing(false);
+    }
+  };
+
   const confirmAndDeploy = async () => {
     if (!customProjectSlug.trim()) {
       alert('Please enter a project name/slug');
@@ -624,11 +692,12 @@ btn.addEventListener("click", () => {
     try {
       const finalHtml = generateMergedHtml(getActiveHtmlContent());
 
-      // Send to backend
+      // Send to backend - Netlify deployment
       const payload = {
         mergedHtml: finalHtml,
         projectName: activeFile.filename.replace('.html', ''),
-        customSlug: customProjectSlug.toLowerCase()
+        customSlug: customProjectSlug.toLowerCase(),
+        deploymentType: 'netlify'
       };
 
       const response = await axios.post(`${API_URL}/publish`, payload);
@@ -647,11 +716,13 @@ btn.addEventListener("click", () => {
       }
 
     } catch (error) {
-      // Check if slug already exists
-      if (error.response?.data?.error?.includes('already exists')) {
-        alert('⚠️ Project name already taken!\n\nThis name is already in use by another user. Please choose a different project name.');
+      // Check if name already taken
+      if (error.response?.data?.nameTaken) {
+        alert(error.response.data.error);
+        // Reopen modal to try different name
+        setShowConfirmDeploy(true);
       } else {
-        alert(`Failed to publish project: ${error.response?.data?.error || error.message}`);
+        alert(`Failed to publish: ${error.response?.data?.error || error.message}`);
       }
       console.error('Publish error:', error);
     } finally {
@@ -1499,9 +1570,9 @@ btn.addEventListener("click", () => {
               Choose Deployment Method
             </h2>
 
-            {/* GitHub CI/CD Option */}
+            {/* Backend Server Deploy Option */}
             <div 
-              onClick={handleGitHubDeploy}
+              onClick={handleBackendDeploy}
               style={{
                 backgroundColor: theme === 'light' ? '#f8f9fa' : '#1e1e1e',
                 border: `2px solid ${theme === 'light' ? '#e0e0e0' : '#444'}`,
@@ -1513,11 +1584,13 @@ btn.addEventListener("click", () => {
                 position: 'relative'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#2196F3';
+                e.currentTarget.style.borderColor = '#4CAF50';
+                e.currentTarget.style.backgroundColor = theme === 'light' ? '#f0fff4' : '#1a2f1a';
                 e.currentTarget.style.transform = 'translateY(-2px)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = theme === 'light' ? '#e0e0e0' : '#444';
+                e.currentTarget.style.backgroundColor = theme === 'light' ? '#f8f9fa' : '#1e1e1e';
                 e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
@@ -1525,21 +1598,21 @@ btn.addEventListener("click", () => {
                 position: 'absolute',
                 top: '10px',
                 right: '10px',
-                backgroundColor: '#FFC107',
-                color: '#000',
-                padding: '2px 8px',
+                backgroundColor: '#4CAF50',
+                color: '#fff',
+                padding: '4px 10px',
                 borderRadius: '4px',
                 fontSize: '10px',
                 fontWeight: 'bold'
               }}>
-                COMING SOON
+                READY ✓
               </div>
               <h3 style={{
                 margin: '0 0 10px 0',
-                color: theme === 'light' ? '#333' : '#fff',
+                color: '#4CAF50',
                 fontSize: '18px'
               }}>
-                Publish via GitHub CI/CD Pipeline
+                🖥️ Deploy to Backend Server
               </h3>
               <p style={{
                 margin: '0',
@@ -1547,13 +1620,12 @@ btn.addEventListener("click", () => {
                 fontSize: '13px',
                 lineHeight: '1.6'
               }}>
-                <strong>Technical Workflow:</strong><br/>
-                1. <strong>Version Control Integration:</strong> Your code will be pushed to a GitHub repository with proper branch management<br/>
-                2. <strong>CI/CD Pipeline Setup:</strong> GitHub Actions will be configured to automatically trigger on code commits to main branch<br/>
-                3. <strong>Build & Test Automation:</strong> Pipeline will validate, build, and run automated tests on your codebase<br/>
-                4. <strong>Continuous Deployment:</strong> Successful builds will be automatically deployed to production server with zero-downtime deployment strategies<br/>
-                5. <strong>Webhook Integration:</strong> GitHub webhooks will notify deployment server on push events for instant updates<br/>
-                6. <strong>Environment Management:</strong> Separate staging and production environments with environment-specific configurations
+                <strong>Features:</strong><br/>
+                • Create multiple sites with custom slugs<br/>
+                • Update existing sites anytime<br/>
+                • Fast server-side rendering<br/>
+                • No external dependencies<br/>
+                • Full control over your deployments
               </p>
             </div>
 
@@ -1671,6 +1743,140 @@ btn.addEventListener("click", () => {
               style={{
                 width: '100%',
                 padding: '12px',
+                backgroundColor: theme === 'light' ? '#f0f0f0' : '#444',
+                color: theme === 'light' ? '#333' : '#fff',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontSize: '14px',
+                fontWeight: 'bold'
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+      
+      {/* Backend Sites List Modal */}
+      {showBackendSitesList && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1001
+        }}>
+          <div style={{
+            backgroundColor: theme === 'light' ? '#fff' : '#2d2d2d',
+            borderRadius: '12px',
+            padding: '30px',
+            maxWidth: '500px',
+            width: '90%',
+            maxHeight: '80vh',
+            overflowY: 'auto',
+            boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)'
+          }}>
+            <h2 style={{
+              margin: '0 0 20px 0',
+              color: theme === 'light' ? '#333' : '#fff',
+              fontSize: '22px'
+            }}>
+              Backend Deployment
+            </h2>
+
+            {/* New Site Option */}
+            <div style={{
+              backgroundColor: theme === 'light' ? '#f0fff4' : '#1a2f1a',
+              border: '2px solid #4CAF50',
+              borderRadius: '8px',
+              padding: '15px',
+              marginBottom: '20px',
+              cursor: 'pointer'
+            }}
+            onClick={() => {
+              setShowBackendSitesList(false);
+              setCustomProjectSlug('');
+              setShowConfirmDeploy(true);
+            }}>
+              <h3 style={{ margin: '0 0 5px 0', color: '#4CAF50' }}>➕ Create New Site</h3>
+              <p style={{ margin: 0, fontSize: '13px', color: theme === 'light' ? '#666' : '#aaa' }}>
+                Deploy to a new custom URL
+              </p>
+            </div>
+
+            {/* Existing Sites List */}
+            {backendSites.length > 0 && (
+              <>
+                <h3 style={{
+                  margin: '0 0 15px 0',
+                  color: theme === 'light' ? '#666' : '#aaa',
+                  fontSize: '14px'
+                }}>
+                  Or update an existing site:
+                </h3>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  {backendSites.map((site) => (
+                    <div
+                      key={site.slug}
+                      onClick={() => confirmBackendDeploy(true, site.slug)}
+                      style={{
+                        backgroundColor: theme === 'light' ? '#f8f9fa' : '#1e1e1e',
+                        border: `1px solid ${theme === 'light' ? '#e0e0e0' : '#444'}`,
+                        borderRadius: '6px',
+                        padding: '12px',
+                        cursor: 'pointer',
+                        transition: 'all 0.2s'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.borderColor = '#4CAF50';
+                        e.currentTarget.style.transform = 'translateX(5px)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.borderColor = theme === 'light' ? '#e0e0e0' : '#444';
+                        e.currentTarget.style.transform = 'translateX(0)';
+                      }}
+                    >
+                      <div style={{
+                        fontWeight: 'bold',
+                        color: theme === 'light' ? '#333' : '#fff',
+                        marginBottom: '5px'
+                      }}>
+                        {site.slug}
+                      </div>
+                      <div style={{
+                        fontSize: '12px',
+                        color: theme === 'light' ? '#666' : '#aaa'
+                      }}>
+                        {site.url}
+                      </div>
+                      {site.lastModified && (
+                        <div style={{
+                          fontSize: '11px',
+                          color: theme === 'light' ? '#999' : '#666',
+                          marginTop: '5px'
+                        }}>
+                          Last updated: {new Date(site.lastModified).toLocaleString()}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            <button
+              onClick={() => setShowBackendSitesList(false)}
+              style={{
+                width: '100%',
+                padding: '12px',
+                marginTop: '20px',
                 backgroundColor: theme === 'light' ? '#f0f0f0' : '#444',
                 color: theme === 'light' ? '#333' : '#fff',
                 border: 'none',
