@@ -513,8 +513,13 @@ btn.addEventListener("click", () => {
       return;
     }
 
-    // Show deployment options modal
-    setShowDeploymentOptions(true);
+    // If already published, directly redeploy
+    if (isPublished && savedProjectId && savedSiteId) {
+      handleDirectDeploy();
+    } else {
+      // First time - show deployment options modal
+      setShowDeploymentOptions(true);
+    }
   };
 
   // Generate merged HTML by embedding CSS and JS
