@@ -1300,21 +1300,7 @@ btn.addEventListener("click", () => {
             >
               Run
             </button>
-            <button
-              onClick={publishProject}
-              style={{
-                padding: '6px 12px',
-                backgroundColor: activeFile?.filename?.toLowerCase().endsWith(".html") ? '#9C27B0' : '#ccc',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: activeFile?.filename?.toLowerCase().endsWith(".html") && !isPublishing ? 'pointer' : 'not-allowed',
-                fontSize: '13px'
-              }}
-              disabled={!activeFile?.filename?.toLowerCase().endsWith(".html") || isPublishing}
-            >
-              {isPublishing ? 'Deploying...' : isPublished ? 'Redeploy' : 'Publish'}
-            </button>
+         
             <ThemeToggle onThemeChange={setTheme} />
           </div>
         </div>
