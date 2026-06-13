@@ -147,6 +147,9 @@ btn.addEventListener("click", () => {
   const [savedProjectId, setSavedProjectId] = useState(() => {
     return localStorage.getItem('publishedProjectId') || null;
   });
+  const [savedSiteId, setSavedSiteId] = useState(() => {
+    return localStorage.getItem('publishedSiteId') || null;
+  });
   const [showDeploymentPanel, setShowDeploymentPanel] = useState(false);
   const [mergedHtml, setMergedHtml] = useState('');
   const [showWelcomePopup, setShowWelcomePopup] = useState(true);
@@ -561,7 +564,7 @@ btn.addEventListener("click", () => {
     setShowDeploymentOptions(false);
     
     // If already published, directly update without asking
-    if (isPublished && savedProjectId) {
+    if (isPublished && savedProjectId && savedSiteId) {
       setIsPublishing(true);
       
       try {
@@ -571,7 +574,8 @@ btn.addEventListener("click", () => {
           mergedHtml: finalHtml,
           projectName: activeFile.filename.replace('.html', ''),
           customSlug: savedProjectId.toLowerCase(),
-          projectId: savedProjectId
+          projectId: savedProjectId,
+          siteId: savedSiteId
         };
 
         const response = await axios.post(`${API_URL}/publish`, payload);
@@ -581,12 +585,12 @@ btn.addEventListener("click", () => {
           setShowPublishModal(true);
           
           // Show success message
-          alert('✅ Project updated successfully!');
+          alert('✅ Site redeployed successfully!');
         }
 
       } catch (error) {
-        alert(`Failed to update project: ${error.response?.data?.error || error.message}`);
-        console.error('Update error:', error);
+        alert(`Failed to redeploy: ${error.response?.data?.error || error.message}`);
+        console.error('Redeploy error:', error);
       } finally {
         setIsPublishing(false);
       }
@@ -615,16 +619,12 @@ btn.addEventListener("click", () => {
     try {
       const finalHtml = generateMergedHtml(getActiveHtmlContent());
 
-      // Send to backend - use saved projectId for republish
+      // Send to backend
       const payload = {
         mergedHtml: finalHtml,
         projectName: activeFile.filename.replace('.html', ''),
         customSlug: customProjectSlug.toLowerCase()
       };
-
-      if (isPublished && savedProjectId) {
-        payload.projectId = savedProjectId;
-      }
 
       const response = await axios.post(`${API_URL}/publish`, payload);
 
@@ -633,10 +633,12 @@ btn.addEventListener("click", () => {
         setShowPublishModal(true);
         setIsPublished(true);
         setSavedProjectId(response.data.projectId);
+        setSavedSiteId(response.data.siteId);
         
         // Save to localStorage
         localStorage.setItem('isProjectPublished', 'true');
         localStorage.setItem('publishedProjectId', response.data.projectId);
+        localStorage.setItem('publishedSiteId', response.data.siteId);
       }
 
     } catch (error) {
@@ -1151,7 +1153,7 @@ btn.addEventListener("click", () => {
               }}
               disabled={!activeFile?.filename?.toLowerCase().endsWith(".html") || isPublishing}
             >
-              {isPublishing ? 'Publishing...' : isPublished ? 'Re-Publish' : 'Publish'}
+              {isPublishing ? 'Deploying...' : isPublished ? 'Redeploy' : 'Publish'}
             </button>
             <ThemeToggle onThemeChange={setTheme} />
           </div>
