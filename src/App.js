@@ -1211,30 +1211,29 @@ btn.addEventListener("click", () => {
 
             {!showDeploymentPanel && (
               <>
+                {/* Publish button */}
                 <button
                   className="toggle-btn"
                   onClick={() => {
-                    if (activeFile?.filename?.toLowerCase().endsWith('.html')) {
-                      const merged = generateMergedHtml(getActiveHtmlContent());
-                      setMergedHtml(merged);
-                      setShowDeploymentPanel(!showDeploymentPanel);
-                    } else {
-                      alert('Please select an HTML file');
-                    }
+                    setShowDeploymentOptions(true);
                   }}
                   style={{
                     padding: '6px 12px',
                     cursor: 'pointer',
                     borderRadius: '4px',
-                    border: `1px solid ${theme === 'light' ? '#ccc' : '#555'}`,
-                    backgroundColor: showDeploymentPanel ? (theme === 'light' ? '#e3f2fd' : '#1a3a52') : (theme === 'light' ? '#f0f0f0' : '#333'),
-                    color: theme === 'light' ? '#333' : '#fff',
-                    fontSize: '16px'
+                    border: `1px solid ${theme === 'light' ? '#2196F3' : '#42a5f5'}`,
+                    backgroundColor: theme === 'light' ? '#e3f2fd' : '#1565c0',
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
                   }}
-                  title={showDeploymentPanel ? "Close Deployment" : "Deploy to Netlify"}
-              >
-                🚀
-              </button>
+                  title="Publish your project"
+                >
+                  🚀 Publish
+                </button>
 
                 {/* Redeploy button - only show if user has deployed sites */}
                 {(myDeployedSites.length > 0 || isPublished) && (
