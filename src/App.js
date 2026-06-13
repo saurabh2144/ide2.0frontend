@@ -160,6 +160,7 @@ btn.addEventListener("click", () => {
     const saved = localStorage.getItem('myDeployedSites');
     return saved ? JSON.parse(saved) : [];
   });
+  const [deploymentType, setDeploymentType] = useState('netlify'); // 'netlify' or 'backend'
 
   const activeFile = files.find(file => file.id === activeFileId);
 
@@ -645,6 +646,7 @@ btn.addEventListener("click", () => {
   // Handle backend deployment (new or update)
   const handleBackendDeploy = async () => {
     setShowDeploymentOptions(false);
+    setDeploymentType('backend');
     
     // Fetch backend sites first
     await fetchBackendSites();
@@ -721,12 +723,12 @@ btn.addEventListener("click", () => {
     try {
       const finalHtml = generateMergedHtml(getActiveHtmlContent());
 
-      // Send to backend - Netlify deployment
+      // Send to backend with correct deployment type
       const payload = {
         mergedHtml: finalHtml,
         projectName: activeFile.filename.replace('.html', ''),
         customSlug: customProjectSlug.toLowerCase(),
-        deploymentType: 'netlify'
+        deploymentType: deploymentType // Use the state to determine type
       };
 
       const response = await axios.post(`${API_URL}/publish`, payload);
@@ -734,14 +736,25 @@ btn.addEventListener("click", () => {
       if (response.data.success) {
         setPublishedUrl(response.data.url);
         setShowPublishModal(true);
-        setIsPublished(true);
-        setSavedProjectId(response.data.projectId);
-        setSavedSiteId(response.data.siteId);
         
-        // Save to localStorage
-        localStorage.setItem('isProjectPublished', 'true');
-        localStorage.setItem('publishedProjectId', response.data.projectId);
-        localStorage.setItem('publishedSiteId', response.data.siteId);
+        // Only save to persistent storage if it's Netlify
+        if (deploymentType === 'netlify') {
+          setIsPublished(true);
+          setSavedProjectId(response.data.projectId);
+          setSavedSiteId(response.data.siteId);
+          
+          // Save to localStorage for Netlify
+          localStorage.setItem('isProjectPublished', 'true');
+          localStorage.setItem('publishedProjectId', response.data.projectId);
+          localStorage.setItem('publishedSiteId', response.data.siteId);
+        } else if (deploymentType === 'backend') {
+          // Save to backend sites list
+          saveDeployedSite({
+            slug: response.data.projectId,
+            url: response.data.url,
+            lastModified: new Date().toISOString()
+          });
+        }
       }
 
     } catch (error) {
@@ -1658,9 +1671,12 @@ btn.addEventListener("click", () => {
               </p>
             </div>
 
-            {/* Direct Server Deploy Option */}
+            {/* Netlify Deploy Option */}
             <div 
-              onClick={handleDirectDeploy}
+              onClick={() => {
+                setDeploymentType('netlify');
+                handleDirectDeploy();
+              }}
               style={{
                 backgroundColor: theme === 'light' ? '#f8f9fa' : '#1e1e1e',
                 border: `2px solid ${theme === 'light' ? '#e0e0e0' : '#444'}`,
@@ -1831,6 +1847,7 @@ btn.addEventListener("click", () => {
             onClick={() => {
               setShowBackendSitesList(false);
               setCustomProjectSlug('');
+              setDeploymentType('backend'); // Make sure it's backend
               setShowConfirmDeploy(true);
             }}>
               <h3 style={{ margin: '0 0 5px 0', color: '#4CAF50' }}>➕ Create New Site</h3>
