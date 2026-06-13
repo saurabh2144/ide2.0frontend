@@ -1679,62 +1679,13 @@ btn.addEventListener("click", () => {
               }}
               style={{
                 backgroundColor: theme === 'light' ? '#f8f9fa' : '#1e1e1e',
-                border: `2px solid ${theme === 'light' ? '#e0e0e0' : '#444'}`,
-                borderRadius: '10px',
-                padding: '20px',
-                marginBottom: '15px',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#4CAF50';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = theme === 'light' ? '#e0e0e0' : '#444';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              <h3 style={{
-                margin: '0 0 10px 0',
-                color: theme === 'light' ? '#333' : '#fff',
-                fontSize: '18px'
-              }}>
-                Deploy on Dedicated Server (Quick Deploy)
-              </h3>
-              <p style={{
-                margin: '0',
-                color: theme === 'light' ? '#666' : '#aaa',
-                fontSize: '13px',
-                lineHeight: '1.6'
-              }}>
-                <strong>Technical Workflow:</strong><br/>
-                1. <strong>Code Bundling:</strong> HTML, CSS, and JavaScript files are merged into a single optimized bundle<br/>
-                2. <strong>Server Upload:</strong> Bundled code is directly uploaded to our dedicated hosting server via secure API<br/>
-                3. <strong>Static File Serving:</strong> Express.js serves your project as static files with proper MIME types and caching headers<br/>
-                4. <strong>Instant Deployment:</strong> No build process required - your project goes live immediately with a unique URL<br/>
-                5. <strong>Hot Updates:</strong> Re-publish feature allows instant updates to the same URL without downtime
-              </p>
-            </div>
-
-            {/* Netlify Deploy Option */}
-            <div 
-              onClick={() => {
-                setShowDeploymentOptions(false);
-                if (activeFile?.filename?.toLowerCase().endsWith('.html')) {
-                  const merged = generateMergedHtml(getActiveHtmlContent());
-                  setMergedHtml(merged);
-                  setShowDeploymentPanel(true);
-                }
-              }}
-              style={{
-                backgroundColor: theme === 'light' ? '#f8f9fa' : '#1e1e1e',
                 border: `2px solid #667eea`,
                 borderRadius: '10px',
                 padding: '20px',
                 marginBottom: '20px',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                position: 'relative'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = '#667eea';
@@ -1765,7 +1716,7 @@ btn.addEventListener("click", () => {
                 color: '#667eea',
                 fontSize: '18px'
               }}>
-                ☁️ Deploy to Netlify (Auto-Deploy)
+                ☁️ Deploy to Netlify
               </h3>
               <p style={{
                 margin: '0',
@@ -1773,13 +1724,12 @@ btn.addEventListener("click", () => {
                 fontSize: '13px',
                 lineHeight: '1.6'
               }}>
-                <strong>Technical Workflow:</strong><br/>
-                1. <strong>Auto-Generated URL:</strong> Each deployment creates a new Netlify site with unique auto-generated URL<br/>
-                2. <strong>Direct Netlify API:</strong> HTML is deployed directly to Netlify via their official REST API<br/>
-                3. <strong>SSL Enabled:</strong> All deployments are automatically secured with HTTPS/SSL certificates<br/>
-                4. <strong>CDN Distribution:</strong> Projects are served through Netlify's global CDN for fast loading speeds<br/>
-                5. <strong>Instant Publishing:</strong> One-click deployment with instant URL generation - no configuration needed<br/>
-                6. <strong>Deployment History:</strong> All previous deployments are logged for easy reference and tracking
+                <strong>Features:</strong><br/>
+                • One-time publish with custom domain<br/>
+                • Global CDN distribution<br/>
+                • Automatic HTTPS/SSL<br/>
+                • Fast deployment (updates in seconds)<br/>
+                • Professional hosting
               </p>
             </div>
 
