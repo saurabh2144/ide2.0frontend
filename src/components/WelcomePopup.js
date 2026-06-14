@@ -26,13 +26,13 @@ const WelcomePopup = ({ onClose }) => {
         <button className="welcome-close-button" onClick={handleClose}>✕</button>
         
         <div className="welcome-content">
-          <div className="welcome-icon">🚀</div>
+          <div className="welcome-icon">[IDE]</div>
           <h2 className="welcome-title">Why Choose This Platform?</h2>
           <h3 className="welcome-subtitle">इस प्लेटफ़ॉर्म को क्यों चुनें?</h3>
           
           <div className="welcome-features">
             <div className="feature-item">
-              <div className="feature-icon">⚡</div>
+              <div className="feature-icon">[Fast]</div>
               <div className="feature-text">
                 <p className="feature-en">Auto Deploy to Netlify - Get your own live website instantly</p>
                 <p className="feature-hi">नेटलिफाई पर ऑटो डिप्लॉय - तुरंत अपनी लाइव वेबसाइट पाएं</p>
@@ -42,7 +42,7 @@ const WelcomePopup = ({ onClose }) => {
             
 
             <div className="feature-item">
-              <div className="feature-icon">🤖</div>
+              <div className="feature-icon">[AI]</div>
               <div className="feature-text">
                <p className="feature-en">Chat with AI and generate code effortlessly.</p>
 
@@ -55,7 +55,7 @@ const WelcomePopup = ({ onClose }) => {
             </div>
 
             <div className="feature-item">
-              <div className="feature-icon">💻</div>
+              <div className="feature-icon">[Code]</div>
               <div className="feature-text">
                 <p className="feature-en">Full Code Editor - Build your projects easily</p>
                  

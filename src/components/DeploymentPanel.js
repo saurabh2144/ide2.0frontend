@@ -75,8 +75,8 @@ const DeploymentPanel = ({ mergedHtml, projectName, onDeploySuccess, onClose }) 
       <div className="deployment-panel">
         <div className="deployment-container">
           <div className="deployment-header">
-            <h2>☁️ Deploy to Netlify</h2>
-            <button className="close-button" onClick={handleClose}>✕</button>
+            <h2>Deploy to Netlify</h2>
+            <button className="close-button" onClick={handleClose}>X</button>
           </div>
 
         {/* Deployment Form */}
@@ -107,7 +107,7 @@ const DeploymentPanel = ({ mergedHtml, projectName, onDeploySuccess, onClose }) 
             <strong>{customSlug || autoSlug}</strong>.netlify.app
           </div>
 
-          {error && <div className="error-message">❌ {error}</div>}
+          {error && <div className="error-message">{error}</div>}
 
           <button
             onClick={handleDeploy}
@@ -122,7 +122,7 @@ const DeploymentPanel = ({ mergedHtml, projectName, onDeploySuccess, onClose }) 
         {deploymentResult && (
           <div className="deployment-result">
             <div className="success-message">
-              ✅ {deploymentResult.message}
+              {deploymentResult.message}
             </div>
 
             <div className="result-details">
@@ -162,7 +162,7 @@ const DeploymentPanel = ({ mergedHtml, projectName, onDeploySuccess, onClose }) 
 
               {deploymentResult.deploymentType === 'local' && (
                 <div className="local-info">
-                  <p><strong>⚠️ Platform:</strong> Local Server (Netlify not configured)</p>
+                  <p><strong>Platform:</strong> Local Server (Netlify not configured)</p>
                 </div>
               )}
             </div>

@@ -297,7 +297,7 @@ btn.addEventListener("click", () => {
 
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
-      console.error('❌ ERROR:', err);
+      console.error('ERROR:', err);
       const errorMessage = {
         type: 'error',
         text: `Error: ${err.response?.data?.error || err.message}`,
@@ -374,7 +374,7 @@ btn.addEventListener("click", () => {
       }
       
     } catch (err) {
-      console.error('❌ ERROR:', err);
+      console.error('ERROR:', err);
       const errorMessage = {
         type: 'error',
         text: `Error generating code: ${err.response?.data?.error || err.message}`,
@@ -632,7 +632,7 @@ btn.addEventListener("click", () => {
           setShowPublishModal(true);
           
           // Show success message
-          alert('✅ Site redeployed successfully!');
+          alert('Site redeployed successfully!');
         }
 
       } catch (error) {
@@ -696,7 +696,7 @@ btn.addEventListener("click", () => {
           lastModified: new Date().toISOString()
         });
         
-        alert(`✅ ${isUpdate ? 'Site updated' : 'Site published'} successfully on backend!`);
+        alert(`${isUpdate ? 'Site updated' : 'Site published'} successfully on backend!`);
       }
 
     } catch (error) {
@@ -1232,7 +1232,7 @@ btn.addEventListener("click", () => {
                   }}
                   title="Publish your project"
                 >
-                  🚀 Publish
+                  Publish
                 </button>
 
                 {/* Redeploy button - only show if user has deployed sites */}
@@ -1257,7 +1257,7 @@ btn.addEventListener("click", () => {
                     }}
                     title="Redeploy to existing site"
                   >
-                    <span style={{ fontSize: '14px' }}>🔄</span>
+                    <span style={{ fontSize: '14px' }}>↻</span>
                     <span className="redeploy-btn-text">Redeploy</span>
                   </button>
                 )}
@@ -1681,7 +1681,7 @@ btn.addEventListener("click", () => {
                 color: '#4CAF50',
                 fontSize: '18px'
               }}>
-                🖥️ Deploy to Backend Server
+                Deploy to Backend Server
               </h3>
               <p style={{
                 margin: '0',
@@ -1743,7 +1743,7 @@ btn.addEventListener("click", () => {
                 color: '#667eea',
                 fontSize: '18px'
               }}>
-                ☁️ Deploy to Netlify
+                Deploy to Netlify
               </h3>
               <p style={{
                 margin: '0',
@@ -1808,7 +1808,7 @@ btn.addEventListener("click", () => {
               fontSize: '22px',
               textAlign: 'center'
             }}>
-              🔄 Redeploy Options
+              Redeploy Options
             </h2>
             
             <p style={{
@@ -1867,7 +1867,7 @@ btn.addEventListener("click", () => {
                     fontSize: '36px',
                     marginBottom: '10px'
                   }}>
-                    🖥️
+                    [Server]
                   </div>
                   <h3 style={{
                     margin: '0 0 8px 0',
@@ -1919,7 +1919,7 @@ btn.addEventListener("click", () => {
                       if (response.data.success) {
                         setPublishedUrl(response.data.url);
                         setShowPublishModal(true);
-                        alert('✅ Site redeployed successfully on Netlify!');
+                        alert('Site redeployed successfully on Netlify!');
                       }
                     } catch (error) {
                       alert(`Failed to redeploy: ${error.response?.data?.error || error.message}`);
@@ -1950,7 +1950,7 @@ btn.addEventListener("click", () => {
                     fontSize: '36px',
                     marginBottom: '10px'
                   }}>
-                    ☁️
+                    [Cloud]
                   </div>
                   <h3 style={{
                     margin: '0 0 8px 0',
@@ -2230,7 +2230,7 @@ btn.addEventListener("click", () => {
                   alignItems: 'center',
                   gap: '5px'
                 }}>
-                  ⚠️ {nameValidationError}
+                  {nameValidationError}
                 </p>
               )}
               
