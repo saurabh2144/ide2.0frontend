@@ -1257,8 +1257,7 @@ btn.addEventListener("click", () => {
                     }}
                     title="Redeploy to existing site"
                   >
-                    <span style={{ fontSize: '14px' }}>↻</span>
-                    <span className="redeploy-btn-text">Redeploy</span>
+                    Redeploy
                   </button>
                 )}
               </>
