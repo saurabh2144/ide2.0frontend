@@ -169,7 +169,7 @@ function Auth({ onLoginSuccess }) {
 
   const getBotResponse = (query) => {
     const q = query.toLowerCase();
-    
+
     // RAG Knowledge Base for Saurabh IDE
     if (q.includes("deploy") || q.includes("host") || q.includes("publish") || q.includes("render") || q.includes("netlify")) {
       return "Saurabh IDE supports 1-click deployments! You can host your frontend assets directly to Netlify or deploy secure full-stack backend servers on Render hosting platforms.";
@@ -192,7 +192,7 @@ function Auth({ onLoginSuccess }) {
     if (q.includes("security") || q.includes("jwt") || q.includes("secure")) {
       return "Saurabh IDE guarantees workspace security! User authentication is sealed with secure JWT tokens, passwords are encrypted, and each workspace is isolated.";
     }
-    
+
     return "I can only answer questions related to Saurabh IDE (e.g., templates, deployment platforms, AI agent actions, or workspace zip uploads). Try asking 'how to deploy?' or 'what templates are available?'";
   };
 
@@ -324,11 +324,11 @@ function Auth({ onLoginSuccess }) {
           <button type="button" className="landing-theme-toggle" onClick={handleToggleTheme} title="Toggle Theme">
             {localTheme === 'dark' ? (
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                <circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
               </svg>
             ) : (
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
               </svg>
             )}
           </button>
@@ -357,11 +357,11 @@ function Auth({ onLoginSuccess }) {
 
         <h1 className="hero-title" style={{ position: 'relative', zIndex: 2 }}>From Prompt to Product.</h1>
         <p className="hero-subtitle" style={{ fontSize: '22px', fontWeight: '500', opacity: 0.9, position: 'relative', zIndex: 2 }}>You're one click away from launching your idea.</p>
-        
+
         {/* Prompter box */}
         <div className="hero-prompt-container" onClick={() => { setAuthMode('signup'); setShowLoginModal(true); }} style={{ position: 'relative', zIndex: 2 }}>
-          <input 
-            type="text" 
+          <input
+            type="text"
             placeholder="Ask Saurabh IDE to create a landing page for my..."
             value={heroPrompt}
             onChange={(e) => setHeroPrompt(e.target.value)}
@@ -377,7 +377,7 @@ function Auth({ onLoginSuccess }) {
       {/* "Meet Lovable" Section */}
       <section id="features" className="landing-features">
         <h2 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          Meet 
+          Meet
           {renderHexLogo(32)}
           Saurabh IDE
         </h2>
@@ -386,9 +386,9 @@ function Auth({ onLoginSuccess }) {
           <div className="features-visual-canvas">
             <div className="features-showcase">
               <div className="feature-carousel-wrapper">
-                <button 
+                <button
                   type="button"
-                  className="carousel-arrow prev-arrow" 
+                  className="carousel-arrow prev-arrow"
                   onClick={(e) => {
                     e.stopPropagation();
                     setCurrentFeatureIndex((prev) => (prev - 1 + features.length) % features.length);
@@ -427,30 +427,30 @@ function Auth({ onLoginSuccess }) {
                       {renderIcon(features[currentFeatureIndex].icon)}
                     </div>
                   )}
-                  
+
                   <h3 className="feature-title">
                     {features[currentFeatureIndex].title}
                   </h3>
                   <p className="feature-description">
                     {features[currentFeatureIndex].description}
                   </p>
-                  
-                  <div 
-                    className="feature-highlight" 
-                    onClick={() => setShowWorkflowModal(true)} 
+
+                  <div
+                    className="feature-highlight"
+                    onClick={() => setShowWorkflowModal(true)}
                     style={{ cursor: 'pointer' }}
                   >
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{display: 'inline-block', marginRight: '4px', verticalAlign: 'middle'}}>
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" style={{ display: 'inline-block', marginRight: '4px', verticalAlign: 'middle' }}>
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor" />
                     </svg>
                     {features[currentFeatureIndex].highlight}
                     {currentFeatureIndex === 0 && <span style={{ marginLeft: '6px', fontSize: '9px', textDecoration: 'underline' }}>• Learn Workflow</span>}
                   </div>
                 </div>
 
-                <button 
+                <button
                   type="button"
-                  className="carousel-arrow next-arrow" 
+                  className="carousel-arrow next-arrow"
                   onClick={(e) => {
                     e.stopPropagation();
                     setCurrentFeatureIndex((prev) => (prev + 1) % features.length);
@@ -554,8 +554,8 @@ function Auth({ onLoginSuccess }) {
         <span className="cta-badge">AI App Builder</span>
         <h2 className="cta-title">Ready to build?</h2>
         <div className="cta-prompt-container" onClick={() => { setAuthMode('signup'); setShowLoginModal(true); }}>
-          <input 
-            type="text" 
+          <input
+            type="text"
             placeholder="Ask Saurabh IDE to create a blog about..."
             value={bottomPrompt}
             onChange={(e) => setBottomPrompt(e.target.value)}
@@ -638,11 +638,11 @@ function Auth({ onLoginSuccess }) {
             <span className="teaser-text">Chat to know about more</span>
             <div className="chat-trigger-bubble">
               {/* Cute Robot Icon */}
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="11" width="18" height="10" rx="2" />
                 <path d="M12 2v4M12 6H8m4 0h4" />
-                <circle cx="8" cy="15" r="1.2" fill="currentColor" />
-                <circle cx="16" cy="15" r="1.2" fill="currentColor" />
+                <circle cx="8" cy="15" r="1.5" fill="currentColor" />
+                <circle cx="16" cy="15" r="1.5" fill="currentColor" />
                 <path d="M9 18h6" />
               </svg>
             </div>
@@ -666,8 +666,8 @@ function Auth({ onLoginSuccess }) {
               ))}
             </div>
             <form onSubmit={handleSendChat} className="chat-input-bar">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="Ask about templates, deployments, agent..."
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
@@ -682,16 +682,16 @@ function Auth({ onLoginSuccess }) {
       {showWorkflowModal && (
         <div className="workflow-modal-overlay" onClick={() => setShowWorkflowModal(false)}>
           <div className="workflow-modal-content" onClick={(e) => e.stopPropagation()}>
-            <div 
-              className="auth-back-link" 
-              onClick={() => setShowWorkflowModal(false)} 
-              style={{ 
-                cursor: 'pointer', 
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                gap: '6px', 
-                fontSize: '13px', 
-                color: '#64748b', 
+            <div
+              className="auth-back-link"
+              onClick={() => setShowWorkflowModal(false)}
+              style={{
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '13px',
+                color: '#64748b',
                 marginBottom: '15px',
                 fontWeight: '600',
                 transition: 'color 0.2s'
@@ -700,14 +700,14 @@ function Auth({ onLoginSuccess }) {
               onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
               Back to Features
             </div>
             <button className="workflow-modal-close" onClick={() => setShowWorkflowModal(false)}>&times;</button>
             <h3 className="workflow-modal-title">Agentic AI Autonomous Workflow</h3>
             <p className="workflow-modal-subtitle">हमारा AI एजेंट बैकग्राउंड में कोडिंग कैसे करता है</p>
-            
+
             <div className="workflow-steps">
               <div className="workflow-step">
                 <div className="step-num">01</div>
@@ -746,16 +746,16 @@ function Auth({ onLoginSuccess }) {
       {showLoginModal && (
         <div className="login-modal-overlay" onClick={() => setShowLoginModal(false)}>
           <div className="login-modal-content" onClick={(e) => e.stopPropagation()}>
-            <div 
-              className="auth-back-link" 
-              onClick={() => setShowLoginModal(false)} 
-              style={{ 
-                cursor: 'pointer', 
-                display: 'inline-flex', 
-                alignItems: 'center', 
-                gap: '6px', 
-                fontSize: '13px', 
-                color: '#64748b', 
+            <div
+              className="auth-back-link"
+              onClick={() => setShowLoginModal(false)}
+              style={{
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                fontSize: '13px',
+                color: '#64748b',
                 marginBottom: '15px',
                 fontWeight: '600',
                 transition: 'color 0.2s'
@@ -764,7 +764,7 @@ function Auth({ onLoginSuccess }) {
               onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
+                <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
               Back to Home
             </div>
@@ -783,11 +783,11 @@ function Auth({ onLoginSuccess }) {
                 {authMode === 'login' ? 'Welcome Back!' : authMode === 'signup' ? 'Create Account' : 'Forgot Password?'}
               </h2>
               <p className="auth-subtitle">
-                {authMode === 'login' 
-                  ? 'Login to access your projects' 
-                  : authMode === 'signup' 
-                  ? 'Start building amazing projects today' 
-                  : 'We\'ll help you recover your password'}
+                {authMode === 'login'
+                  ? 'Login to access your projects'
+                  : authMode === 'signup'
+                    ? 'Start building amazing projects today'
+                    : 'We\'ll help you recover your password'}
               </p>
 
               {message && (

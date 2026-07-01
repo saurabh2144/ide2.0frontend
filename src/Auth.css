@@ -1555,8 +1555,8 @@
 /* Floating RAG Chatbot (Saurabh) */
 .rag-chat-container {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 45px;
+  right: 45px;
   z-index: 1000;
   font-family: inherit;
 }
@@ -1584,13 +1584,13 @@
 
 .teaser-text {
   background: #1e293b;
-  border: 1px solid #334155;
-  color: #cbd5e1;
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: 600;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 2px solid #6366f1;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
   white-space: nowrap;
   transition: all 0.3s;
 }
@@ -1602,15 +1602,15 @@
 }
 
 .chat-trigger-bubble {
-  width: 52px;
-  height: 52px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
   background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
   transition: all 0.3s;
 }
 
