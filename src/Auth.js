@@ -563,6 +563,7 @@ function Auth({ onLoginSuccess, theme }) {
             ))}
           </div>
         </div>
+      </div>
       {showWorkflowModal && (
         <div className="workflow-modal-overlay" onClick={() => setShowWorkflowModal(false)}>
           <div className="workflow-modal-content" onClick={(e) => e.stopPropagation()}>
