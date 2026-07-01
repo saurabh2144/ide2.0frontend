@@ -821,11 +821,11 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 850px;
-  height: 850px;
+  width: 900px;
+  height: 900px;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.12;
+  opacity: 0.45;
   perspective: 1200px;
   transform-style: preserve-3d;
 }
@@ -849,7 +849,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  border: 1px solid rgba(99, 102, 241, 0.35);
+  border: 1.5px solid rgba(99, 102, 241, 0.5);
   border-radius: 50%;
   transform-style: preserve-3d;
 }
@@ -860,11 +860,11 @@
 
 .bg-orbit-node {
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #ffffff;
-  box-shadow: 0 0 15px #ffffff, 0 0 30px #6366f1;
+  box-shadow: 0 0 20px #ffffff, 0 0 35px #6366f1, 0 0 60px #4f46e5;
 }
 
 .bg-node-1 { top: 0; left: 50%; transform: translate(-50%, -50%); }
@@ -872,3 +872,289 @@
 .bg-node-3 { left: 0; top: 50%; transform: translate(-50%, -50%); }
 .bg-node-4 { right: 0; top: 50%; transform: translate(-50%, -50%); }
 .bg-node-5 { top: 15%; left: 85%; transform: translate(-50%, -50%); }
+
+/* Theme Toggle Button */
+.auth-theme-toggle {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.auth-theme-toggle:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
+  color: #6366f1;
+  transform: scale(1.05);
+}
+
+/* Light Theme Overrides */
+.auth-container.light {
+  background: #f8fafc;
+}
+
+.auth-container.light .bg-neural-container {
+  opacity: 0.35;
+}
+
+.auth-container.light .bg-orbit-ring {
+  border: 1.5px solid rgba(79, 70, 229, 0.35);
+}
+
+.auth-container.light .bg-orbit-node {
+  background: #4f46e5;
+  box-shadow: 0 0 15px #4f46e5, 0 0 30px rgba(79, 70, 229, 0.4);
+}
+
+.auth-container.light .auth-form-wrapper,
+.auth-container.light .features-showcase {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+}
+
+.auth-container.light .auth-title {
+  color: #0f172a;
+}
+
+.auth-container.light .auth-subtitle,
+.auth-container.light .tagline,
+.auth-container.light .auth-links p,
+.auth-container.light .link-secondary {
+  color: #64748b;
+}
+
+.auth-container.light .link-secondary:hover {
+  color: #0f172a;
+}
+
+.auth-container.light .form-group label {
+  color: #334155 !important;
+}
+
+.auth-container.light .form-group input {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #0f172a !important;
+}
+
+.auth-container.light .form-group input:focus {
+  background: #ffffff;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+.auth-container.light .form-group input::placeholder {
+  color: #94a3b8;
+}
+
+.auth-container.light .password-toggle {
+  color: #64748b;
+}
+
+.auth-container.light .password-toggle:hover {
+  color: #0f172a;
+}
+
+.auth-container.light .feature-title {
+  color: #0f172a;
+}
+
+.auth-container.light .feature-description {
+  color: #475569;
+}
+
+.auth-container.light .carousel-arrow {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.auth-container.light .carousel-arrow:hover {
+  background: rgba(79, 70, 229, 0.08);
+  border-color: rgba(79, 70, 229, 0.3);
+  color: #4f46e5;
+  box-shadow: 0 0 12px rgba(79, 70, 229, 0.2);
+}
+
+.auth-container.light .dot {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.auth-container.light .dot.active {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  box-shadow: 0 3px 10px rgba(79, 70, 229, 0.3);
+}
+
+.auth-container.light .auth-theme-toggle {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.auth-container.light .auth-theme-toggle:hover {
+  background: rgba(79, 70, 229, 0.08);
+  border-color: rgba(79, 70, 229, 0.3);
+  color: #4f46e5;
+}
+
+/* Agentic AI Workflow Modal */
+.workflow-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeInModal 0.3s ease-out;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.workflow-modal-content {
+  background: #1e293b;
+  border: 1px solid #334155;
+  padding: 40px;
+  border-radius: 24px;
+  width: 90%;
+  max-width: 650px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  position: relative;
+  animation: slideUpModal 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #ffffff;
+}
+
+@keyframes slideUpModal {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.workflow-modal-close {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.workflow-modal-close:hover {
+  color: #ffffff;
+}
+
+.workflow-modal-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.workflow-modal-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 30px 0;
+}
+
+.workflow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.workflow-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 15px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: all 0.3s ease;
+}
+
+.workflow-step:hover {
+  background: rgba(99, 102, 241, 0.05);
+  border-color: rgba(99, 102, 241, 0.15);
+  transform: translateX(5px);
+}
+
+.step-num {
+  font-size: 20px;
+  font-weight: 900;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.step-info h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: #f1f5f9;
+  text-align: left;
+}
+
+.step-info p {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Light Mode overrides for workflow modal */
+.auth-container.light .workflow-modal-content {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: #0f172a;
+}
+
+.auth-container.light .step-info h4 {
+  color: #1e293b;
+}
+
+.auth-container.light .step-info p {
+  color: #475569;
+}
+
+.auth-container.light .workflow-step {
+  background: rgba(0, 0, 0, 0.01);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.auth-container.light .workflow-step:hover {
+  background: rgba(79, 70, 229, 0.03);
+  border-color: rgba(79, 70, 229, 0.1);
+}

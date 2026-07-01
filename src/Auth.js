@@ -15,6 +15,20 @@ function Auth({ onLoginSuccess, theme }) {
   const [currentFeatureIndex, setCurrentFeatureIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [localTheme, setLocalTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark';
+  });
+  const [showWorkflowModal, setShowWorkflowModal] = useState(false);
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', localTheme);
+  }, [localTheme]);
+
+  const handleToggleTheme = () => {
+    const nextTheme = localTheme === 'dark' ? 'light' : 'dark';
+    setLocalTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+  };
 
   const features = [
     {
@@ -264,10 +278,38 @@ function Auth({ onLoginSuccess, theme }) {
   };
 
   return (
-    <div className={`auth-container ${theme}`} style={{
+    <div className={`auth-container ${localTheme}`} style={{
       '--mouse-x': mousePos.x,
       '--mouse-y': mousePos.y
     }}>
+      {/* Theme Toggle Button */}
+      <button 
+        type="button"
+        className="auth-theme-toggle" 
+        onClick={handleToggleTheme}
+        title={localTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      >
+        {localTheme === 'dark' ? (
+          // Sun icon
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/>
+            <line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        ) : (
+          // Moon icon
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        )}
+      </button>
+
       {/* Giant 3D Neural Orbit Background */}
       <div className="bg-neural-container">
         <div className="bg-neural-core">
@@ -480,11 +522,17 @@ function Auth({ onLoginSuccess, theme }) {
                 {features[currentFeatureIndex].description}
               </p>
               
-              <div className="feature-highlight">
+              <div 
+                className="feature-highlight" 
+                onClick={() => setShowWorkflowModal(true)} 
+                style={{ cursor: 'pointer' }}
+                title="Click to learn about the Autonomous AI Workflow"
+              >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{display: 'inline-block', marginRight: '4px', verticalAlign: 'middle'}}>
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
                 </svg>
                 {features[currentFeatureIndex].highlight}
+                {currentFeatureIndex === 0 && <span style={{ marginLeft: '8px', fontSize: '10px', opacity: 0.9, textDecoration: 'underline' }}>• Learn Workflow</span>}
               </div>
             </div>
 
@@ -515,7 +563,46 @@ function Auth({ onLoginSuccess, theme }) {
             ))}
           </div>
         </div>
-      </div>
+      {showWorkflowModal && (
+        <div className="workflow-modal-overlay" onClick={() => setShowWorkflowModal(false)}>
+          <div className="workflow-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="workflow-modal-close" onClick={() => setShowWorkflowModal(false)}>&times;</button>
+            <h3 className="workflow-modal-title">Agentic AI Autonomous Workflow</h3>
+            <p className="workflow-modal-subtitle">हमारा AI एजेंट बैकग्राउंड में कोडिंग कैसे करता है</p>
+            
+            <div className="workflow-steps">
+              <div className="workflow-step">
+                <div className="step-num">01</div>
+                <div className="step-info">
+                  <h4>Requirement Analysis</h4>
+                  <p>आपके प्रॉम्प्ट को समझकर फ़ाइलों के स्ट्रक्चर और डेटाबेस डिपेंडेंसीज़ का सटीक प्लान बनाना।</p>
+                </div>
+              </div>
+              <div className="workflow-step">
+                <div className="step-num">02</div>
+                <div className="step-info">
+                  <h4>Autonomous Coding</h4>
+                  <p>मल्टी-फ़ाइल एडिट टूल से फ़्रंटएंड और बैकएंड कोड लिखना, फ़ाइलों को बनाना और रिप्लेस करना।</p>
+                </div>
+              </div>
+              <div className="workflow-step">
+                <div className="step-num">03</div>
+                <div className="step-info">
+                  <h4>Self-Correction & Linting</h4>
+                  <p>कंपाइलर एरर्स और लिंटिंग वार्निंग्स को खुद डिटेक्ट करके बैकग्राउंड में बिना रुके फिक्स करना।</p>
+                </div>
+              </div>
+              <div className="workflow-step">
+                <div className="step-num">04</div>
+                <div className="step-info">
+                  <h4>Live Deployment</h4>
+                  <p>1-क्लिक में प्रोजेक्ट को नेटलिफ़ाई/रेंडर पर लाइव डिप्लॉय कर पब्लिक यूआरएल उपलब्ध कराना।</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
