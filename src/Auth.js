@@ -27,6 +27,14 @@ function Auth({ onLoginSuccess }) {
     document.body.setAttribute('data-theme', localTheme);
   }, [localTheme]);
 
+  useEffect(() => {
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = 'auto';
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
+  }, []);
+
   const handleToggleTheme = () => {
     const nextTheme = localTheme === 'dark' ? 'light' : 'dark';
     setLocalTheme(nextTheme);
@@ -555,6 +563,28 @@ function Auth({ onLoginSuccess }) {
       {showWorkflowModal && (
         <div className="workflow-modal-overlay" onClick={() => setShowWorkflowModal(false)}>
           <div className="workflow-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div 
+              className="auth-back-link" 
+              onClick={() => setShowWorkflowModal(false)} 
+              style={{ 
+                cursor: 'pointer', 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '6px', 
+                fontSize: '13px', 
+                color: '#64748b', 
+                marginBottom: '15px',
+                fontWeight: '600',
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#6366f1'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              Back to Features
+            </div>
             <button className="workflow-modal-close" onClick={() => setShowWorkflowModal(false)}>&times;</button>
             <h3 className="workflow-modal-title">Agentic AI Autonomous Workflow</h3>
             <p className="workflow-modal-subtitle">हमारा AI एजेंट बैकग्राउंड में कोडिंग कैसे करता है</p>
@@ -597,6 +627,28 @@ function Auth({ onLoginSuccess }) {
       {showLoginModal && (
         <div className="login-modal-overlay" onClick={() => setShowLoginModal(false)}>
           <div className="login-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div 
+              className="auth-back-link" 
+              onClick={() => setShowLoginModal(false)} 
+              style={{ 
+                cursor: 'pointer', 
+                display: 'inline-flex', 
+                alignItems: 'center', 
+                gap: '6px', 
+                fontSize: '13px', 
+                color: '#64748b', 
+                marginBottom: '15px',
+                fontWeight: '600',
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#6366f1'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#64748b'}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+              </svg>
+              Back to Home
+            </div>
             <button className="login-modal-close" onClick={() => setShowLoginModal(false)}>&times;</button>
             <div className="auth-form-wrapper" style={{ transform: 'none', margin: 0, minHeight: 'auto' }}>
               {/* Logo */}
