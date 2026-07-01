@@ -1569,6 +1569,19 @@
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* Waving & Jumping Hello Animation for Chatbot Robot Icon */
+@keyframes chatbotBounceHello {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-16px) rotate(-6deg); }
+  50% { transform: translateY(-16px) rotate(6deg); }
+  75% { transform: translateY(-16px) rotate(-6deg); }
+  90% { transform: translateY(0) rotate(0deg); }
+}
+
+.chatbot-bounce-hello .chat-trigger-bubble {
+  animation: chatbotBounceHello 2.4s infinite ease-in-out;
+}
+
 .teaser-text {
   background: #1e293b;
   border: 1px solid #334155;

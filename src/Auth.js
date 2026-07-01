@@ -29,6 +29,7 @@ function Auth({ onLoginSuccess }) {
     { text: "Hello! I am Saurabh, your RAG-based AI companion. Ask me anything about Saurabh IDE features!", sender: "bot" }
   ]);
   const [chatInput, setChatInput] = useState("");
+  const [hasChatBeenOpened, setHasChatBeenOpened] = useState(false);
 
   useEffect(() => {
     document.body.setAttribute('data-theme', localTheme);
@@ -253,6 +254,15 @@ function Auth({ onLoginSuccess }) {
     return icons[iconName] || null;
   };
 
+  const renderHexLogo = (size = 24) => {
+    return (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ flexShrink: 0, color: '#6366f1' }}>
+        <polygon points="12 2 22 7.5 22 16.5 12 22 2 16.5 2 7.5" fill="rgba(99, 102, 241, 0.12)" />
+        <path d="M7 9l-3 3 3 3M17 9l3 3-3 3M10 15l4-6" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -303,10 +313,7 @@ function Auth({ onLoginSuccess }) {
       {/* Top Header Navbar */}
       <header className="landing-header">
         <div className="landing-logo">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <path d="M9 9l6 6M15 9l-6 6" />
-          </svg>
+          {renderHexLogo(24)}
           <span>Saurabh IDE</span>
         </div>
         <nav className="landing-nav">
@@ -371,10 +378,7 @@ function Auth({ onLoginSuccess }) {
       <section id="features" className="landing-features">
         <h2 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           Meet 
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ color: '#6366f1', flexShrink: 0 }}>
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <path d="M9 9l6 6M15 9l-6 6" />
-          </svg>
+          {renderHexLogo(32)}
           Saurabh IDE
         </h2>
         <div className="features-layout">
@@ -530,6 +534,18 @@ function Auth({ onLoginSuccess }) {
             <h3 className="stat-number">1-Click</h3>
             <p className="stat-desc">Netlify & Render Deploy</p>
           </div>
+          <div className="stat-card">
+            <h3 className="stat-number">Free</h3>
+            <p className="stat-desc">Agentic AI Core</p>
+          </div>
+          <div className="stat-card">
+            <h3 className="stat-number">Custom AI</h3>
+            <p className="stat-desc">LLM Provider Config</p>
+          </div>
+          <div className="stat-card">
+            <h3 className="stat-number">Monaco</h3>
+            <p className="stat-desc">VS Code Editor Engine</p>
+          </div>
         </div>
       </section>
 
@@ -557,10 +573,7 @@ function Auth({ onLoginSuccess }) {
         <div className="footer-columns">
           <div className="footer-brand-col">
             <div className="landing-logo" style={{ cursor: 'default' }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <rect x="3" y="3" width="18" height="18" rx="2" />
-                <path d="M9 9l6 6M15 9l-6 6" />
-              </svg>
+              {renderHexLogo(24)}
               <span>Saurabh IDE</span>
             </div>
             <p className="footer-brand-desc">The autonomous AI coding companion for developers.</p>
@@ -621,11 +634,16 @@ function Auth({ onLoginSuccess }) {
       {/* Floating RAG Chatbot (Saurabh) */}
       <div className={`rag-chat-container ${chatOpen ? 'chat-active' : ''}`}>
         {!chatOpen ? (
-          <div className="chat-teaser-badge" onClick={() => setChatOpen(true)}>
+          <div className={`chat-teaser-badge ${!hasChatBeenOpened ? 'chatbot-bounce-hello' : ''}`} onClick={() => { setChatOpen(true); setHasChatBeenOpened(true); }}>
             <span className="teaser-text">Chat to know about more</span>
             <div className="chat-trigger-bubble">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              {/* Cute Robot Icon */}
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="3" y="11" width="18" height="10" rx="2" />
+                <path d="M12 2v4M12 6H8m4 0h4" />
+                <circle cx="8" cy="15" r="1.2" fill="currentColor" />
+                <circle cx="16" cy="15" r="1.2" fill="currentColor" />
+                <path d="M9 18h6" />
               </svg>
             </div>
           </div>
@@ -755,10 +773,7 @@ function Auth({ onLoginSuccess }) {
               {/* Logo */}
               <div className="auth-logo">
                 <h1 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <path d="M9 9l6 6M15 9l-6 6" />
-                  </svg>
+                  {renderHexLogo(28)}
                   Saurabh IDE
                 </h1>
                 <p className="tagline">Code. Build. Deploy.</p>
