@@ -284,8 +284,8 @@ function Auth({ onLoginSuccess }) {
 
       {/* Hero Section */}
       <section className="landing-hero">
-        <h1 className="hero-title">Build something Lovable</h1>
-        <p className="hero-subtitle">Create apps and websites by chatting with AI.</p>
+        <h1 className="hero-title">From Prompt to Product.</h1>
+        <p className="hero-subtitle" style={{ fontSize: '22px', fontWeight: '500', opacity: 0.9 }}>You're one click away from launching your idea.</p>
         
         {/* Prompter box */}
         <div className="hero-prompt-container" onClick={() => { setAuthMode('signup'); setShowLoginModal(true); }}>
