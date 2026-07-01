@@ -268,6 +268,23 @@ function Auth({ onLoginSuccess, theme }) {
       '--mouse-x': mousePos.x,
       '--mouse-y': mousePos.y
     }}>
+      {/* Giant 3D Neural Orbit Background */}
+      <div className="bg-neural-container">
+        <div className="bg-neural-core">
+          <div className="bg-orbit-ring bg-ring-1">
+            <div className="bg-orbit-node bg-node-1"></div>
+            <div className="bg-orbit-node bg-node-2"></div>
+          </div>
+          <div className="bg-orbit-ring bg-ring-2">
+            <div className="bg-orbit-node bg-node-3"></div>
+            <div className="bg-orbit-node bg-node-4"></div>
+          </div>
+          <div className="bg-orbit-ring bg-ring-3">
+            <div className="bg-orbit-node bg-node-5"></div>
+          </div>
+        </div>
+      </div>
+
       {/* Left Side - Login Form */}
       <div className="auth-left">
         <div className="auth-form-wrapper">
