@@ -381,7 +381,7 @@ function Auth({ onLoginSuccess }) {
       <section id="features" className="landing-features">
         <h2 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           Meet
-          {renderHexLogo(32)}
+
           Saurabh IDE
         </h2>
         <div className="features-layout">
@@ -554,7 +554,7 @@ function Auth({ onLoginSuccess }) {
 
       {/* Bottom CTA */}
       <section className="landing-cta">
-        <span className="cta-badge">AI App Builder</span>
+        <span className="cta-badge">AI Builder</span>
         <h2 className="cta-title">Ready to build?</h2>
         <div className="cta-prompt-container" onClick={() => { setAuthMode('signup'); setShowLoginModal(true); }}>
           <input
