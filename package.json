@@ -2,20 +2,48 @@
   "name": "ai-code-editor-frontend",
   "version": "1.0.0",
   "private": true,
+  "main": "electron/main.js",
   "engines": {
     "node": "20.x || 22.x"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
     "axios": "^1.6.0",
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^5.0.1",
+    "socket.io-client": "^4.8.3",
+    "xterm": "^5.3.0",
+    "xterm-addon-fit": "^0.8.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "electron": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "npm run build && electron-builder",
     "postinstall": "chmod +x node_modules/.bin/*"
+  },
+  "build": {
+    "appId": "com.saurabh.ide",
+    "productName": "Saurabh IDE",
+    "files": [
+      "build/**/*",
+      "electron/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "devDependencies": {
+    "electron": "^42.4.1",
+    "electron-builder": "^26.15.3"
   },
   "browserslist": {
     "production": [

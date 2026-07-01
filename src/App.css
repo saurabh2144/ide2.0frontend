@@ -116,7 +116,7 @@ body {
   color: var(--text-muted);
 }
 
-/* File Sidebar */
+/* File Sidebar - VS Code Style */
 .file-sidebar {
   width: 260px;
   min-width: 260px;
@@ -125,6 +125,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
+  font-size: 13px;
 }
 
 .file-sidebar::-webkit-scrollbar {
@@ -184,14 +185,17 @@ body {
 }
 
 .file-item {
-  padding: 6px 8px;
-  margin: 2px 0;
-  border-radius: 4px;
+  padding: 4px 8px;
+  margin: 0;
+  border-radius: 0;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  line-height: 22px;
+  user-select: none;
 }
 
 .file-item:hover {
@@ -211,6 +215,18 @@ body {
 .file-item span {
   flex: 1;
   color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-item-icon {
+  margin-right: 6px;
+  flex-shrink: 0;
+  opacity: 0.8;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
 }
 
 .file-item button {
@@ -223,6 +239,11 @@ body {
   color: white;
   padding: 2px 6px;
   font-size: 12px;
+}
+
+.file-item:hover .file-more-btn {
+  display: inline-block !important;
+  opacity: 0.7 !important;
 }
 
 .file-item:hover button {
@@ -861,7 +882,87 @@ textarea:focus-visible {
 .file-item span,
 .file-item.active,
 .file-item.active span {
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
+}
+
+/* File Context Menu */
+.file-context-menu {
+  position: fixed;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  padding: 4px 0;
+  min-width: 180px;
+  animation: contextMenuFadeIn 0.15s ease-out;
+}
+
+@keyframes contextMenuFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.context-menu-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-primary);
+  user-select: none;
+}
+
+.context-menu-item:hover {
+  background: var(--hover-bg);
+}
+
+.context-menu-item svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.8;
+}
+
+.context-menu-item.danger {
+  color: #ef4444;
+}
+
+.context-menu-item.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.context-menu-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 4px 0;
 }
 
 /* Ensure text is always readable */
