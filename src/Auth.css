@@ -90,11 +90,11 @@
   background: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(25px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 40px 35px;
+  padding: 45px 40px;
   border-radius: 24px;
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   width: 100%;
-  max-width: 440px;
+  max-width: 480px;
   z-index: 10;
   animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   margin: 10px 0;
@@ -410,9 +410,9 @@
 /* Features Showcase */
 .features-showcase {
   width: 100%;
-  max-width: 500px;
+  max-width: 620px;
   z-index: 10;
-  padding: 40px 30px;
+  padding: 50px 40px;
   background: rgba(15, 23, 42, 0.35);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -423,11 +423,52 @@
   transition: transform 0.12s ease-out;
 }
 
+/* Feature Carousel Wrapper & Arrows */
+.feature-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  gap: 15px;
+}
+
+.carousel-arrow {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 20;
+  transform: translateZ(40px);
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.carousel-arrow:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: rgba(6, 182, 212, 0.3);
+  color: #06b6d4;
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+  transform: scale(1.1) translateZ(40px);
+}
+
+.carousel-arrow:active {
+  transform: scale(0.95) translateZ(40px);
+}
+
 /* Feature Display */
 .feature-display {
+  flex: 1;
   text-align: center;
   animation: fadeInUp 0.8s ease-out;
-  margin-bottom: 25px;
   padding: 0 10px;
   transform-style: preserve-3d;
 }

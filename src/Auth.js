@@ -18,7 +18,7 @@ function Auth({ onLoginSuccess, theme }) {
 
   const features = [
     {
-      icon: 'robot', // Special flag for 3D robot
+      icon: 'robot', // Special flag for 3D Neural Core
       title: 'AI Agent - आपका Coding साथी',
       description: 'Smart AI jo automatically code लिखता है, bugs fix करता है और projects बनाता है। बस बताओ क्या चाहिए!',
       highlight: 'Chat Mode & Agent Mode',
@@ -44,6 +44,20 @@ function Auth({ onLoginSuccess, theme }) {
       description: 'सारे projects beautiful cards में organize रहते हैं। Auto-save और cloud backup included!',
       highlight: 'Auto-Save + Cloud Sync',
       titleEn: 'Smart Project Management'
+    },
+    {
+      icon: 'palette',
+      title: '1-Click Starter Templates',
+      description: 'React App, Express Server, Portfolio, या Todo App जैसे starter templates से 1-क्लिक में कोडिंग शुरू करें।',
+      highlight: '6 Pre-built Templates',
+      titleEn: '1-Click Project Templates'
+    },
+    {
+      icon: 'folder',
+      title: 'Project ZIP Import & Restore',
+      description: 'अपने लोकल कंप्यूटर से किसी भी प्रोजेक्ट की .zip फ़ाइल अपलोड करें, बैकएंड उसे तुरंत एक्स्ट्रैक्ट करके लोड कर देगा।',
+      highlight: 'ZIP Upload & Unzip',
+      titleEn: 'ZIP Upload & Auto-Extract'
     },
     {
       icon: 'palette',
@@ -396,50 +410,80 @@ function Auth({ onLoginSuccess, theme }) {
           <div className="bg-decoration decoration-2"></div>
           <div className="bg-decoration decoration-3"></div>
 
-          {/* Main Feature Display */}
-          <div className="feature-display">
-            {/* 3D Neural Core for AI Feature */}
-            {features[currentFeatureIndex].icon === 'robot' ? (
-              <div className="neural-container">
-                <div className="neural-core-3d">
-                  <div className="core-glowing-sphere"></div>
-                  <div className="orbit-ring ring-1">
-                    <div className="orbit-node node-1"></div>
-                    <div className="orbit-node node-2"></div>
-                  </div>
-                  <div className="orbit-ring ring-2">
-                    <div className="orbit-node node-3"></div>
-                    <div className="orbit-node node-4"></div>
-                  </div>
-                  <div className="orbit-ring ring-3">
-                    <div className="orbit-node node-5"></div>
-                  </div>
-                </div>
-                <div className="neural-pulse-waves">
-                  <span className="wave"></span>
-                  <span className="wave"></span>
-                </div>
-              </div>
-            ) : (
-              <div className="feature-icon-3d">
-                {renderIcon(features[currentFeatureIndex].icon)}
-              </div>
-            )}
-            
-            <h2 className="feature-title">
-              {features[currentFeatureIndex].title}
-            </h2>
-            
-            <p className="feature-description">
-              {features[currentFeatureIndex].description}
-            </p>
-            
-            <div className="feature-highlight">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{display: 'inline-block', marginRight: '4px', verticalAlign: 'middle'}}>
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+          {/* Main Feature Display with Arrows */}
+          <div className="feature-carousel-wrapper">
+            <button 
+              type="button"
+              className="carousel-arrow prev-arrow" 
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentFeatureIndex((prev) => (prev - 1 + features.length) % features.length);
+              }}
+              aria-label="Previous Feature"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              {features[currentFeatureIndex].highlight}
+            </button>
+
+            <div className="feature-display">
+              {/* 3D Neural Core for AI Feature */}
+              {features[currentFeatureIndex].icon === 'robot' ? (
+                <div className="neural-container">
+                  <div className="neural-core-3d">
+                    <div className="core-glowing-sphere"></div>
+                    <div className="orbit-ring ring-1">
+                      <div className="orbit-node node-1"></div>
+                      <div className="orbit-node node-2"></div>
+                    </div>
+                    <div className="orbit-ring ring-2">
+                      <div className="orbit-node node-3"></div>
+                      <div className="orbit-node node-4"></div>
+                    </div>
+                    <div className="orbit-ring ring-3">
+                      <div className="orbit-node node-5"></div>
+                    </div>
+                  </div>
+                  <div className="neural-pulse-waves">
+                    <span className="wave"></span>
+                    <span className="wave"></span>
+                  </div>
+                </div>
+              ) : (
+                <div className="feature-icon-3d">
+                  {renderIcon(features[currentFeatureIndex].icon)}
+                </div>
+              )}
+              
+              <h2 className="feature-title">
+                {features[currentFeatureIndex].title}
+              </h2>
+              
+              <p className="feature-description">
+                {features[currentFeatureIndex].description}
+              </p>
+              
+              <div className="feature-highlight">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{display: 'inline-block', marginRight: '4px', verticalAlign: 'middle'}}>
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
+                </svg>
+                {features[currentFeatureIndex].highlight}
+              </div>
             </div>
+
+            <button 
+              type="button"
+              className="carousel-arrow next-arrow" 
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentFeatureIndex((prev) => (prev + 1) % features.length);
+              }}
+              aria-label="Next Feature"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
           </div>
 
           {/* Feature Navigation Dots */}
@@ -452,28 +496,6 @@ function Auth({ onLoginSuccess, theme }) {
                 aria-label={`Feature ${index + 1}`}
               />
             ))}
-          </div>
-
-          {/* Stats/Trust Indicators */}
-          <div className="trust-indicators">
-            <div className="indicator">
-              <div className="indicator-value">2000+</div>
-              <div className="indicator-label">Projects Created</div>
-            </div>
-            <div className="indicator">
-              <div className="indicator-value">1000+</div>
-              <div className="indicator-label">Happy Users</div>
-            </div>
-            <div className="indicator">
-              <div className="indicator-value">50K+</div>
-              <div className="indicator-label">Lines of Code</div>
-            </div>
-          </div>
-
-          {/* Powered By Badge */}
-          <div className="powered-by">
-            <span className="powered-text">Powered by</span>
-            <span className="tech-stack">React • Monaco • AI • Netlify</span>
           </div>
         </div>
       </div>
