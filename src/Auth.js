@@ -357,6 +357,9 @@ function Auth({ onLoginSuccess }) {
 
         <h1 className="hero-title" style={{ position: 'relative', zIndex: 2 }}>From Prompt to Product.</h1>
         <p className="hero-subtitle" style={{ fontSize: '22px', fontWeight: '500', opacity: 0.9, position: 'relative', zIndex: 2 }}>You're one click away from launching your idea.</p>
+        <p className="hero-subtitle-hn" style={{ fontSize: '15.5px', color: '#a5b4fc', marginTop: '8px', opacity: 0.95, position: 'relative', zIndex: 2, fontWeight: '500', maxWidth: '650px', marginLeft: 'auto', marginRight: 'auto', lineHeight: '1.5' }}>
+          आसान तरीके से सब कुछ फ्री में — कोडिंग से लेकर लाइव डिप्लॉयमेंट तक, सीधे अपनी वेबसाइट का लाइव लिंक हमसे पाएँ!
+        </p>
 
         {/* Prompter box */}
         <div className="hero-prompt-container" onClick={() => { setAuthMode('signup'); setShowLoginModal(true); }} style={{ position: 'relative', zIndex: 2 }}>

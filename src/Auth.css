@@ -149,6 +149,7 @@
   position: relative;
   z-index: 5;
   text-align: center;
+  overflow: hidden;
 }
 
 .hero-title {
@@ -1523,7 +1524,7 @@
 /* Hero Orbit Backdrop */
 .hero-orbit-backdrop {
   position: absolute;
-  top: 45%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 700px;
