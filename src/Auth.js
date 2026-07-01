@@ -75,6 +75,18 @@ function Auth({ onLoginSuccess, theme }) {
     }
   ];
 
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 20;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      setMousePos({ x, y });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   // Auto-rotate features every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
@@ -102,48 +114,89 @@ function Auth({ onLoginSuccess, theme }) {
   const renderIcon = (iconName) => {
     const icons = {
       lightning: (
-        <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/>
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="lightningGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#fbbf24" />
+              <stop offset="100%" stopColor="#ef4444" />
+            </linearGradient>
+          </defs>
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="url(#lightningGrad)" style={{ filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.7))' }} />
         </svg>
       ),
       rocket: (
-        <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" stroke="currentColor" strokeWidth="2"/>
-          <path d="M12 6v12M6 12h12" stroke="currentColor" strokeWidth="2"/>
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <defs>
+            <linearGradient id="rocketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#3b82f6" />
+              <stop offset="100%" stopColor="#8b5cf6" />
+            </linearGradient>
+          </defs>
+          <path d="M4.5 16.5c-1.5 1.25-2.5 3.5-2.5 3.5s2.25-1 3.5-2.5L18 5.5c1.2-1.2 1-3.2-.2-4.4-1.2-1.2-3.2-1.4-4.4-.2L4.5 16.5z" fill="url(#rocketGrad)" style={{ filter: 'drop-shadow(0 0 15px rgba(139, 92, 246, 0.6))' }} />
+          <path d="M12 9l-3 3M19 5l-3 3M9 15l-3.5 3.5L2 15l3.5-3.5L9 15z" />
         </svg>
       ),
       folder: (
-        <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-          <path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" stroke="currentColor" strokeWidth="2" fill="currentColor" opacity="0.2"/>
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <defs>
+            <linearGradient id="folderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#a855f7" />
+              <stop offset="100%" stopColor="#6366f1" />
+            </linearGradient>
+          </defs>
+          <path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z" fill="url(#folderGrad)" style={{ filter: 'drop-shadow(0 0 15px rgba(168, 85, 247, 0.5))' }} />
         </svg>
       ),
       palette: (
-        <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-          <circle cx="8" cy="10" r="1.5" fill="currentColor"/>
-          <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
-          <circle cx="16" cy="10" r="1.5" fill="currentColor"/>
-          <circle cx="14" cy="14" r="1.5" fill="currentColor"/>
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <defs>
+            <linearGradient id="paletteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ec4899" />
+              <stop offset="100%" stopColor="#f43f5e" />
+            </linearGradient>
+          </defs>
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.35824 19.5 5.25 20.5 6 21C7 21.6 8 22 10 22" fill="url(#paletteGrad)" style={{ filter: 'drop-shadow(0 0 15px rgba(236, 72, 153, 0.5))' }} />
+          <circle cx="7.5" cy="10.5" r="1" fill="white" />
+          <circle cx="11.5" cy="7.5" r="1" fill="white" />
+          <circle cx="16.5" cy="9.5" r="1" fill="white" />
+          <circle cx="15.5" cy="14.5" r="1" fill="white" />
         </svg>
       ),
       lock: (
-        <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-          <rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="2"/>
-          <path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" strokeWidth="2"/>
-          <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <defs>
+            <linearGradient id="lockGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#10b981" />
+              <stop offset="100%" stopColor="#059669" />
+            </linearGradient>
+          </defs>
+          <rect x="3" y="11" width="18" height="11" rx="2" fill="url(#lockGrad)" style={{ filter: 'drop-shadow(0 0 15px rgba(16, 185, 129, 0.5))' }} />
+          <path d="M7 11V7a5 5 0 0110 0v4" />
         </svg>
       ),
       users: (
-        <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke="currentColor" strokeWidth="2"/>
-          <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="2"/>
-          <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke="currentColor" strokeWidth="2"/>
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <defs>
+            <linearGradient id="usersGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#f97316" />
+              <stop offset="100%" stopColor="#ea580c" />
+            </linearGradient>
+          </defs>
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" fill="url(#usersGrad)" style={{ filter: 'drop-shadow(0 0 15px rgba(249, 115, 22, 0.5))' }} />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 00-3-3.87" />
+          <path d="M16 3.13a4 4 0 010 7.75" />
         </svg>
       ),
       zap: (
-        <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
-          <path d="M12 6v12M6 12h12" stroke="currentColor" strokeWidth="2"/>
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <defs>
+            <linearGradient id="zapGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#06b6d4" />
+              <stop offset="100%" stopColor="#0891b2" />
+            </linearGradient>
+          </defs>
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="url(#zapGrad)" style={{ filter: 'drop-shadow(0 0 15px rgba(6, 182, 212, 0.6))' }} />
         </svg>
       )
     };
@@ -197,7 +250,10 @@ function Auth({ onLoginSuccess, theme }) {
   };
 
   return (
-    <div className={`auth-container ${theme}`}>
+    <div className={`auth-container ${theme}`} style={{
+      '--mouse-x': mousePos.x,
+      '--mouse-y': mousePos.y
+    }}>
       {/* Left Side - Login Form */}
       <div className="auth-left">
         <div className="auth-form-wrapper">
@@ -342,33 +398,26 @@ function Auth({ onLoginSuccess, theme }) {
 
           {/* Main Feature Display */}
           <div className="feature-display">
-            {/* 3D Robot for AI Feature */}
+            {/* 3D Neural Core for AI Feature */}
             {features[currentFeatureIndex].icon === 'robot' ? (
-              <div className="robot-container">
-                <div className="robot-3d">
-                  <div className="robot-head">
-                    <div className="robot-antenna"></div>
-                    <div className="robot-eyes">
-                      <div className="eye left"></div>
-                      <div className="eye right"></div>
-                    </div>
-                    <div className="robot-mouth"></div>
+              <div className="neural-container">
+                <div className="neural-core-3d">
+                  <div className="core-glowing-sphere"></div>
+                  <div className="orbit-ring ring-1">
+                    <div className="orbit-node node-1"></div>
+                    <div className="orbit-node node-2"></div>
                   </div>
-                  <div className="robot-body">
-                    <div className="robot-panel"></div>
-                    <div className="robot-lights">
-                      <span className="light"></span>
-                      <span className="light"></span>
-                      <span className="light"></span>
-                    </div>
+                  <div className="orbit-ring ring-2">
+                    <div className="orbit-node node-3"></div>
+                    <div className="orbit-node node-4"></div>
                   </div>
-                  <div className="robot-arms">
-                    <div className="arm left"></div>
-                    <div className="arm right"></div>
+                  <div className="orbit-ring ring-3">
+                    <div className="orbit-node node-5"></div>
                   </div>
                 </div>
-                <div className="typing-code">
-                  <span className="code-line">const magic = AI();</span>
+                <div className="neural-pulse-waves">
+                  <span className="wave"></span>
+                  <span className="wave"></span>
                 </div>
               </div>
             ) : (
