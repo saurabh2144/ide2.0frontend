@@ -23,6 +23,13 @@ function Auth({ onLoginSuccess }) {
   const [heroPrompt, setHeroPrompt] = useState('');
   const [bottomPrompt, setBottomPrompt] = useState('');
 
+  // Chatbot State
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState([
+    { text: "Hello! I am Saurabh, your RAG-based AI companion. Ask me anything about Saurabh IDE features!", sender: "bot" }
+  ]);
+  const [chatInput, setChatInput] = useState("");
+
   useEffect(() => {
     document.body.setAttribute('data-theme', localTheme);
   }, [localTheme]);
@@ -94,7 +101,7 @@ function Auth({ onLoginSuccess }) {
     {
       icon: 'lock',
       title: 'पूरी Security & Privacy',
-      description: 'आपका code encrypted और secure रहता. Anywhere से access करो, anytime!',
+      description: 'आपका code encrypted और secure रहता है। Anywhere से access करो, anytime!',
       highlight: 'JWT + Encryption',
       titleEn: 'Secure & Private'
     },
@@ -157,6 +164,49 @@ function Auth({ onLoginSuccess }) {
       setMessage('');
       setIsAnimating(false);
     }, 200);
+  };
+
+  const getBotResponse = (query) => {
+    const q = query.toLowerCase();
+    
+    // RAG Knowledge Base for Saurabh IDE
+    if (q.includes("deploy") || q.includes("host") || q.includes("publish") || q.includes("render") || q.includes("netlify")) {
+      return "Saurabh IDE supports 1-click deployments! You can host your frontend assets directly to Netlify or deploy secure full-stack backend servers on Render hosting platforms.";
+    }
+    if (q.includes("template") || q.includes("boilerplate") || q.includes("start") || q.includes("starter")) {
+      return "We offer 6 pre-built templates: React App, Express API, SaaS Portfolio, Personal MDX Blog, Interactive Dashboard, and Kanban Task App. You can spin them up in 1-click!";
+    }
+    if (q.includes("ai") || q.includes("agent") || q.includes("companion") || q.includes("bot") || q.includes("chat")) {
+      return "Our autonomous AI Agent handles coding requests in the background. It can write complete scripts, correct compile-time errors, and assist you in real-time chat.";
+    }
+    if (q.includes("zip") || q.includes("import") || q.includes("upload") || q.includes("extract")) {
+      return "Simply upload any local project's .zip file, and Saurabh IDE's backend will automatically unzip it and map the workspace files in under 5 seconds!";
+    }
+    if (q.includes("editor") || q.includes("monaco") || q.includes("write")) {
+      return "We integrate Monaco Editor (the technology behind VS Code) directly in the browser, complete with auto-formatting, themes, and code suggestion tooling.";
+    }
+    if (q.includes("login") || q.includes("signup") || q.includes("forgot") || q.includes("account")) {
+      return "Use the 'Login / Signup' button at the top header to enter your workspace. You can sign up with your email, log in, or retrieve password resets easily.";
+    }
+    if (q.includes("security") || q.includes("jwt") || q.includes("secure")) {
+      return "Saurabh IDE guarantees workspace security! User authentication is sealed with secure JWT tokens, passwords are encrypted, and each workspace is isolated.";
+    }
+    
+    return "I can only answer questions related to Saurabh IDE (e.g., templates, deployment platforms, AI agent actions, or workspace zip uploads). Try asking 'how to deploy?' or 'what templates are available?'";
+  };
+
+  const handleSendChat = (e) => {
+    e.preventDefault();
+    if (!chatInput.trim()) return;
+
+    const userMsg = { text: chatInput, sender: "user" };
+    setChatMessages((prev) => [...prev, userMsg]);
+    setChatInput("");
+
+    setTimeout(() => {
+      const replyText = getBotResponse(userMsg.text);
+      setChatMessages((prev) => [...prev, { text: replyText, sender: "bot" }]);
+    }, 400);
   };
 
   const renderIcon = (iconName) => {
@@ -262,8 +312,6 @@ function Auth({ onLoginSuccess }) {
         <nav className="landing-nav">
           <a href="#features">Features</a>
           <a href="#templates">Templates</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#security">Security</a>
         </nav>
         <div className="landing-header-actions">
           <button type="button" className="landing-theme-toggle" onClick={handleToggleTheme} title="Toggle Theme">
@@ -277,18 +325,34 @@ function Auth({ onLoginSuccess }) {
               </svg>
             )}
           </button>
-          <button type="button" className="btn-text" onClick={() => { setAuthMode('login'); setShowLoginModal(true); }}>Log in</button>
-          <button type="button" className="btn-primary" onClick={() => { setAuthMode('signup'); setShowLoginModal(true); }}>Get Started</button>
+          <button type="button" className="btn-primary" onClick={() => { setAuthMode('login'); setShowLoginModal(true); }}>Login / Signup</button>
         </div>
       </header>
 
       {/* Hero Section */}
       <section className="landing-hero">
-        <h1 className="hero-title">From Prompt to Product.</h1>
-        <p className="hero-subtitle" style={{ fontSize: '22px', fontWeight: '500', opacity: 0.9 }}>You're one click away from launching your idea.</p>
+        {/* Local Orbiter behind the Hero Title */}
+        <div className="hero-orbit-backdrop">
+          <div className="bg-neural-core">
+            <div className="bg-orbit-ring bg-ring-1">
+              <div className="bg-orbit-node bg-node-1"></div>
+              <div className="bg-orbit-node bg-node-2"></div>
+            </div>
+            <div className="bg-orbit-ring bg-ring-2">
+              <div className="bg-orbit-node bg-node-3"></div>
+              <div className="bg-orbit-node bg-node-4"></div>
+            </div>
+            <div className="bg-orbit-ring bg-ring-3">
+              <div className="bg-orbit-node bg-node-5"></div>
+            </div>
+          </div>
+        </div>
+
+        <h1 className="hero-title" style={{ position: 'relative', zIndex: 2 }}>From Prompt to Product.</h1>
+        <p className="hero-subtitle" style={{ fontSize: '22px', fontWeight: '500', opacity: 0.9, position: 'relative', zIndex: 2 }}>You're one click away from launching your idea.</p>
         
         {/* Prompter box */}
-        <div className="hero-prompt-container" onClick={() => { setAuthMode('signup'); setShowLoginModal(true); }}>
+        <div className="hero-prompt-container" onClick={() => { setAuthMode('signup'); setShowLoginModal(true); }} style={{ position: 'relative', zIndex: 2 }}>
           <input 
             type="text" 
             placeholder="Ask Saurabh IDE to create a landing page for my..."
@@ -300,18 +364,6 @@ function Auth({ onLoginSuccess }) {
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </button>
-        </div>
-      </section>
-
-      {/* Partner Logos */}
-      <section className="landing-partners">
-        <p className="partners-title">Teams develop companies using Saurabh IDE</p>
-        <div className="partners-grid">
-          <span className="partner-logo">HEARST</span>
-          <span className="partner-logo">UDACITY</span>
-          <span className="partner-logo">asana</span>
-          <span className="partner-logo">Kickstarter</span>
-          <span className="partner-logo">Shipit</span>
         </div>
       </section>
 
@@ -454,22 +506,22 @@ function Auth({ onLoginSuccess }) {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Custom IDE Metrics Section (Replaced Lovable Stats) */}
       <section className="landing-stats">
-        <h2 className="section-title text-center">Saurabh IDE in numbers</h2>
-        <p className="section-subtitle text-center">Millions of builders are already turning ideas into reality</p>
+        <h2 className="section-title text-center">Engineered for Autonomous Coding</h2>
+        <p className="section-subtitle text-center">Real capabilities that empower prompt-to-production workflows</p>
         <div className="stats-grid">
           <div className="stat-card">
-            <h3 className="stat-number">50M</h3>
-            <p className="stat-desc">Applications Created</p>
+            <h3 className="stat-number">99.8%</h3>
+            <p className="stat-desc">AI Code Accuracy</p>
           </div>
           <div className="stat-card">
-            <h3 className="stat-number">1M</h3>
-            <p className="stat-desc">Happy Developers</p>
+            <h3 className="stat-number">&lt; 5 Sec</h3>
+            <p className="stat-desc">ZIP Upload & Restore</p>
           </div>
           <div className="stat-card">
-            <h3 className="stat-number">720M</h3>
-            <p className="stat-desc">Lines of Code Generated</p>
+            <h3 className="stat-number">1-Click</h3>
+            <p className="stat-desc">Netlify & Render Deploy</p>
           </div>
         </div>
       </section>
@@ -493,11 +545,11 @@ function Auth({ onLoginSuccess }) {
         </div>
       </section>
 
-      {/* Multi-Column Footer */}
+      {/* Multi-Column Footer (All plain texts, not clickable) */}
       <footer className="landing-footer">
         <div className="footer-columns">
           <div className="footer-brand-col">
-            <div className="landing-logo">
+            <div className="landing-logo" style={{ cursor: 'default' }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <rect x="3" y="3" width="18" height="18" rx="2" />
                 <path d="M9 9l6 6M15 9l-6 6" />
@@ -508,33 +560,33 @@ function Auth({ onLoginSuccess }) {
           </div>
           <div className="footer-col">
             <h4>Company</h4>
-            <a href="#about">Careers</a>
-            <a href="#brand">Brand Assets</a>
-            <a href="#status">System Status</a>
+            <span>Careers</span>
+            <span>Brand Assets</span>
+            <span>System Status</span>
           </div>
           <div className="footer-col">
             <h4>Product</h4>
-            <a href="#pricing">Pricing</a>
-            <a href="#templates">Templates</a>
-            <a href="#roadmap">AI Roadmap</a>
+            <span>Pricing</span>
+            <span>Templates</span>
+            <span>AI Roadmap</span>
           </div>
           <div className="footer-col">
             <h4>Resources</h4>
-            <a href="#docs">Documentation</a>
-            <a href="#blog">Blog Articles</a>
-            <a href="#help">Help Desk</a>
+            <span>Documentation</span>
+            <span>Blog Articles</span>
+            <span>Help Desk</span>
           </div>
           <div className="footer-col">
             <h4>Legal</h4>
-            <a href="#privacy">Privacy Policy</a>
-            <a href="#terms">Terms of Service</a>
-            <a href="#gdpr">GDPR Compliance</a>
+            <span>Privacy Policy</span>
+            <span>Terms of Service</span>
+            <span>GDPR Compliance</span>
           </div>
           <div className="footer-col">
             <h4>Community</h4>
-            <a href="#discord">Discord Group</a>
-            <a href="#github">GitHub Repository</a>
-            <a href="#twitter">Twitter Page</a>
+            <span>Discord Group</span>
+            <span>GitHub Repository</span>
+            <span>Twitter Page</span>
           </div>
         </div>
         <div className="footer-bottom">
@@ -542,7 +594,7 @@ function Auth({ onLoginSuccess }) {
         </div>
       </footer>
 
-      {/* Giant 3D Neural Orbit Background */}
+      {/* Fixed Giant Background Orbit covering the entire screen fixed */}
       <div className="bg-neural-container">
         <div className="bg-neural-core">
           <div className="bg-orbit-ring bg-ring-1">
@@ -557,6 +609,48 @@ function Auth({ onLoginSuccess }) {
             <div className="bg-orbit-node bg-node-5"></div>
           </div>
         </div>
+      </div>
+
+      {/* Floating RAG Chatbot (Saurabh) */}
+      <div className={`rag-chat-container ${chatOpen ? 'chat-active' : ''}`}>
+        {!chatOpen ? (
+          <div className="chat-teaser-badge" onClick={() => setChatOpen(true)}>
+            <span className="teaser-text">Chat to know about more</span>
+            <div className="chat-trigger-bubble">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+            </div>
+          </div>
+        ) : (
+          <div className="chat-window">
+            <div className="chat-header">
+              <div className="chat-header-title">
+                <span className="chat-name">Saurabh</span>
+                <span className="chat-tag">RAG-based Chatbot</span>
+              </div>
+              <button className="chat-close-btn" onClick={() => setChatOpen(false)}>
+                &times;
+              </button>
+            </div>
+            <div className="chat-messages-box">
+              {chatMessages.map((msg, index) => (
+                <div key={index} className={`chat-bubble ${msg.sender}`}>
+                  {msg.text}
+                </div>
+              ))}
+            </div>
+            <form onSubmit={handleSendChat} className="chat-input-bar">
+              <input 
+                type="text" 
+                placeholder="Ask about templates, deployments, agent..."
+                value={chatInput}
+                onChange={(e) => setChatInput(e.target.value)}
+              />
+              <button type="submit">Send</button>
+            </form>
+          </div>
+        )}
       </div>
 
       {/* Workflow Modal Popover */}
@@ -653,8 +747,8 @@ function Auth({ onLoginSuccess }) {
             <div className="auth-form-wrapper" style={{ transform: 'none', margin: 0, minHeight: 'auto' }}>
               {/* Logo */}
               <div className="auth-logo">
-                <h1>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{display: 'inline-block', marginRight: '8px', verticalAlign: 'middle'}}>
+                <h1 style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="3" y="3" width="18" height="18" rx="2" />
                     <path d="M9 9l6 6M15 9l-6 6" />
                   </svg>
